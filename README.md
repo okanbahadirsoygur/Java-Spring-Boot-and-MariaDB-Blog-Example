@@ -3,13 +3,13 @@
 
 
 ### Used Technologies;
-####- SpringBoot 
-####- JPA (Java Persistence API)
-####- Thymeleaf
-####- MariaDB
-####- Pure Javascript
-####- Bootstrap
-####- Scss
+- SpringBoot 
+- JPA (Java Persistence API)
+- Thymeleaf
+- MariaDB
+- Pure Javascript
+- Bootstrap
+- Scss
 
 ### Java Language Level 17
 ### JDK Oracle OpenJDK 17
