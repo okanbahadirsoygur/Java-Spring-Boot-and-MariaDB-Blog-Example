@@ -1,3 +1,11 @@
+<div class="footer">
+    <th:block th:each="setting : ${settings}">
 
+
+        <a th:if="${setting.key == 'FOOTER_DESC'}" target="_blank" href="http://linkedin.com/in/okanbahadirsoygur/" th:text="${'MIT Licance Copyright (c) 2022 '+ setting.value}"></a>
+
+    </th:block>
+
+</div>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

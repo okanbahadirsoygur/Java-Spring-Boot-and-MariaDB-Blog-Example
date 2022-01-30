@@ -4,7 +4,14 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Java Spring Blog</a>
+                <th:block th:each="setting : ${settings}">
+
+                    <img th:if="${setting.key == 'LOGO_URL'}" th:src="${setting.value}" class="brand-logo">
+
+                    <a th:if="${setting.key == 'LOGO_TEXT'}" class="navbar-brand" href="/" th:text="${setting.value}"></a>
+
+                </th:block>
+
             </div>
             <ul class="nav navbar-nav">
                 <li class=""><a href="/">Ana Sayfa</a></li>
