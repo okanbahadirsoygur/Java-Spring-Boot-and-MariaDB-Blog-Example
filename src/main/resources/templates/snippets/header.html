@@ -1,26 +1,49 @@
 
     <title th:text="${title}"></title>
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-header">
+
                 <th:block th:each="setting : ${settings}">
 
-                    <img th:if="${setting.key == 'LOGO_URL'}" th:src="${setting.value}" class="brand-logo">
+                  <a th:if="${setting.key == 'LOGO_URL'}" href="/">
+
+                      <img  th:src="${setting.value}" class="brand-logo">
+
+                  </a>
+
 
                     <a th:if="${setting.key == 'LOGO_TEXT'}" class="navbar-brand" href="/" th:text="${setting.value}"></a>
 
                 </th:block>
 
             </div>
+
+
             <ul class="nav navbar-nav">
-                <li class=""><a href="/">Ana Sayfa</a></li>
+
+             <!--   <li class=""><a href="/">Home</a></li> -->
 
                 <th:block th:each="categorie: ${categories}">
-                    <li><a th:href="@{'/kategoriler/' + ${categorie.slug}}" th:text="${categorie.title}"></a></li>
+                    <li><a th:href="@{'/categories/' + ${categorie.slug}}" th:text="${categorie.title}"></a></li>
                 </th:block>
 
 
             </ul>
+
+
+                <input type="text" name="arama" onkeyup="arama(this)" placeholder="Search" class="arama" maxlength="35">
+                <div class="arama-sonuc">
+                    <ul class="arama-ul">
+
+                    </ul>
+                </div>
+
+
+
         </div>
+
+
+
     </nav>

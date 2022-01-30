@@ -18,6 +18,7 @@ public class Pages {
       2. Burada belirtilmeyen kolonlar hibernate tarafından yok sayılacaktır.
       3. Fonksiyon isimleri get ile başlar demiştik, get'den sonra yazılan isim iligili json tag'ının ismi olur. Örneğin: getfiyat için çıktı şu şekildedir(fiyat). [{"id":1,"isim":"Macbook M1","fiyat":20000.0}]
       4. Fonksiyon ismi ne ise geriye dönecek json tagları o olacaktır. Fonksiyon isimleri veritabanındaki kolon isimlerinden farklı olabilir.
+      5. Veritabanındaki kolon isimlerini parçalarken alt tire kullanmak gerekiyor, büyük harf ile ayırmayı kabul etmiyor. Yanlış Kullanım => imgURL,  Doğru Kullanım => img_url
      */
 
     @Id
@@ -26,13 +27,15 @@ public class Pages {
 
     private Long subId;
 
-    private Long categorieId;
+    private Long categorie_id;
 
     private String slug;
 
     private String title;
 
-    private String subTitle;
+    private String sub_title;
+
+    private String short_data;
 
     private String data;
 
@@ -42,9 +45,11 @@ public class Pages {
 
     private Long rank;
 
-    private String createdTime;
+    private String created_time;
 
     private Long deleted;
+
+    private String img_url;
 
 
     //getter metodları.
@@ -55,7 +60,7 @@ public class Pages {
 
 
     public Long getCategorieId() {
-        return categorieId;
+        return categorie_id;
     }
 
 
@@ -69,9 +74,12 @@ public class Pages {
     }
 
     public String getSubTitle() {
-        return subTitle;
+        return sub_title;
     }
 
+    public String getShort_data() {
+        return short_data;
+    }
 
     public String getData() {
         return data;
@@ -94,7 +102,7 @@ public class Pages {
 
 
     public String getCreatedTime() {
-        return createdTime;
+        return created_time;
     }
 
 
@@ -106,7 +114,9 @@ public class Pages {
         return id;
     }
 
-
+    public String getImgUrl() {
+        return img_url;
+    }
 
     //setter metodları.
 
@@ -115,7 +125,7 @@ public class Pages {
     }
 
     public void setCategorieId(Long categorieId) {
-        this.categorieId = categorieId;
+        this.categorie_id = categorieId;
     }
 
 
@@ -129,9 +139,12 @@ public class Pages {
     }
 
     public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+        this.sub_title = subTitle;
     }
 
+    public void setShort_data(String short_data) {
+        this.short_data = short_data;
+    }
 
     public void setData(String data) {
         this.data = data;
@@ -155,5 +168,9 @@ public class Pages {
 
     public void setDeleted(Long deleted) {
         this.deleted = deleted;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.img_url = imgUrl;
     }
 }

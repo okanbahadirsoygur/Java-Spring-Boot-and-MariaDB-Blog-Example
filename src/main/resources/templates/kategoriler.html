@@ -14,11 +14,80 @@
 <!-- <a th:text="${user}"></a> -->
 
 
- sa
+<main class="kategoriler">
 
-<a th:text="${categorie.getTitle()}"></a>
-<a th:text="${categorie.getDescription()}"></a>
 
+    <div class="container">
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+
+            <center><h2 th:text="${categorie.getTitle()}"></h2></center>
+            <center><a th:text="${categorie.getDescription()}"></a></center>
+
+
+
+ 
+
+            <th:block th:each="sayfa : ${sayfalar}">
+
+                <div class="list">
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+
+                            <a  th:href="@{'/pages/' + ${sayfa.getSlug()}}">
+
+                                <img class="list-img" th:src="${sayfa.getImgUrl()}">
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+
+                            <p class="date" th:text="${sayfa.getCreatedTime()}"></p>
+
+                            <div class="aciklama">
+
+                                <a  th:href="@{'/pages/' + ${sayfa.getSlug()}}"> <h2 th:text="${sayfa.getTitle()}"></h2></a>
+
+                                <!-- gelen datanın ilk 150 karakterini gösterelim gerikalanı ... şeklide gösterelim. #strings.abbreviate() -->
+                                <p th:text="${#strings.abbreviate(sayfa.getShort_data(),150)}"></p>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+            </th:block>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+</main>
 
 
 

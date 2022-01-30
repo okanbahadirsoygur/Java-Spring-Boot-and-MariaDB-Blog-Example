@@ -3,12 +3,18 @@
 
 
 ### Used Technologies;
-- SpringBoot 
-- JPA (Java Persistence API)
-- Thymeleaf
+
+#### Back-End
+- Java
+- Spring Boot 
+- Hibernate, JPA (Java Persistence API)
 - MariaDB
+
+#### Front End
+- Thymeleaf (Template Engine)
 - Pure Javascript
 - Bootstrap
+- Swiper Slide
 - Scss
 
 ### Java Language Level 17

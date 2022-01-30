@@ -14,12 +14,111 @@
 <!-- <a th:text="${user}"></a> -->
 
 
-<th:block th:each="page: ${pages}">
+<main class="anasayfa">
 
 
-    <a th:text="${page.title}"></a>
 
-</th:block>
+            <!-- Swiper -->
+            <div class="swiper anasayfaSlider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://images.alphacoders.com/681/681587.png"></div>
+                    <div class="swiper-slide"><img src="https://images2.alphacoders.com/524/524240.jpg"></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+
+
+
+
+    <!-- en son gönderilen 10 post -->
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12">
+
+
+
+
+
+
+
+
+                <th:block th:if="sonOnSayfalar != null">
+
+                 <h2 class="list-baslik">Recently Posts</h2>
+
+                </th:block>
+
+                <th:block th:each="sonOnSayfa : ${sonOnSayfalar}">
+
+                <div class="list">
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+
+                            <a  th:href="@{'/pages/' + ${sonOnSayfa.getSlug()}}">
+
+                                <img class="list-img" th:src="${sonOnSayfa.getImgUrl()}">
+
+                            </a>
+                            
+                        </div>
+
+
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+
+                            <p class="date" th:text="${sonOnSayfa.getCreatedTime()}"></p>
+
+                            <div class="aciklama">
+
+                               <a  th:href="@{'/pages/' + ${sonOnSayfa.getSlug()}}"> <h2 th:text="${sonOnSayfa.getTitle()}"></h2></a>
+
+                                <!-- gelen datanın ilk 150 karakterini gösterelim gerikalanı ... şeklide gösterelim. #strings.abbreviate() -->
+                                <p th:text="${#strings.abbreviate(sonOnSayfa.getShort_data(),150)}"></p>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                </th:block>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+</main>
+
+
+
+
+
+
 
 
 

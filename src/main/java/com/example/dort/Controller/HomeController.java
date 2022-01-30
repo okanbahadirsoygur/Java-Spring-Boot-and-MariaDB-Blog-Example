@@ -58,42 +58,6 @@ public class HomeController {
 
     }
 
-
-    @GetMapping(value = "/server")
-    public String server() {
-
-        String[] command = {"ls", "-l"};
-
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        processBuilder.directory(new File(System.getProperty("user.home")));
-        String line = "-";
-        try {
-            Process process = processBuilder.start();
-
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-
-            }
-
-            int exitCode = process.waitFor();
-
-            System.out.println("\nExited with error code : " + exitCode);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return line;
-    }
-
-
     @GetMapping(value = "/")
     public ModelAndView index(@RequestParam(defaultValue = "", value = "q") String q) {
 
@@ -107,6 +71,7 @@ public class HomeController {
         modelAndView.addObject("pages", sayfalariGetir());
         modelAndView.addObject("categories", kategorileriGetir());
         modelAndView.addObject("settings", ayarlariGetir());
+        modelAndView.addObject("sonOnSayfalar", sonOnSayfayiGetir());
 
         //html sayfamızın adı.
         modelAndView.setViewName("index");
@@ -119,11 +84,21 @@ public class HomeController {
 
 
 
-    @GetMapping(value = "/kategoriler/{slug}")
+    @GetMapping(value = "/categories/{slug}")
     public ModelAndView kategoriler(@PathVariable String slug){
 
 
+        //gelen kategorinin slug'ından bütün bilgilerini çekelim.
         Categories categorie = categoriesRepos.findBySlug(slug);
+
+        List<Pages> pagesList = new ArrayList<>();
+
+        //gelen kategorinin id bilgisini pagesRepos'a verelim. Bize o categoriy id sine ait bütün pages'ları döndürsün.
+        pagesRepos.findByCategorie_id(categorie.getId()).forEach(pagesList::add);
+
+
+
+
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -131,6 +106,7 @@ public class HomeController {
         modelAndView.addObject("categories", kategorileriGetir());
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("categorie",categorie);
+        modelAndView.addObject("sayfalar",pagesList);
 
 
 
@@ -139,6 +115,27 @@ public class HomeController {
 
 
         return modelAndView;
+    }
+
+
+    @GetMapping(value = "/pages/{slug}")
+    public ModelAndView sayfalar(@PathVariable String slug){
+
+
+        Pages pages = new Pages();
+        pages =  pagesRepos.findBySlug(slug);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("categories", kategorileriGetir());
+        modelAndView.addObject("settings", ayarlariGetir());
+        modelAndView.addObject("sayfa", pages);
+
+
+        modelAndView.setViewName("sayfalar");
+
+        return modelAndView;
+
+
     }
 
 
@@ -153,6 +150,17 @@ public class HomeController {
 
         //Crud repos yardımıyla pages tablomuzdaki bütün dataları pagesList adlı ArrayList'e ekleyelim.
         pagesRepos.findAll().forEach(pagesList::add);
+
+        return pagesList;
+
+    }
+
+
+    public List<Pages> sonOnSayfayiGetir(){
+
+        List<Pages> pagesList = new ArrayList<>();
+
+        pagesRepos.findAllLimit10().forEach(pagesList::add);
 
         return pagesList;
 

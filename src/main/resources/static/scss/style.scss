@@ -1,9 +1,122 @@
 /* Java SpringBoot and MariaDB Blog Example @developer by Okan Bahadır Soygür */
 /* scss style v1 */
 
+@font-face {
+  font-family: "lato";
+  src: url("/fonts/Lato-Light.ttf");
+}
+
+@font-face {
+  font-family: "lato-italic";
+  src: url("/fonts/Lato-LightItalic.ttf");
+}
+
+
+*{
+  font-family: lato!important;
+  font-style: normal!important;
+  font-size: 16px;
+}
+
+h2{
+  color: rgb(108, 180, 74);
+  font-weight: 500;
+  line-height: 1.2em;
+  font-style: italic;
+}
+
+
+
+
+.anasayfa{
+  margin-top: -20px;
+
+  .swiper{
+    width: 100%;
+    height: 300px;
+
+    img{
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-pagination-bullet-active{
+      background: #6cb44a!important;
+      color: #6cb44a!important;
+    }
+  }
+
+  .list-baslik{
+    margin-top: 50px;
+
+  }
+
+  .list{
+    width: 100%;background: white;
+    border: 2px solid lightsteelblue;
+    padding: 20px;
+    margin-top: 50px;
+
+    .list-img{
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .aciklama{
+      width: 100%;
+      padding: 20px;
+
+    }
+
+    a:hover{
+      text-decoration: none;
+    }
+
+
+    .date{
+      top: 0;
+      right: 0;
+      float: right;
+      font-size: 12px;
+
+    }
+
+  }
+
+}
+
+
+
+.sayfalar{
+
+  .one-cikan-resim{
+    width: 100%;
+    height: 300px;
+    margin-bottom: 50px;
+
+    img{
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+
+    }
+  }
+
+}
+
+
 
 header{
+
   nav{
+    top: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid lightsteelblue!important;
+    border-radius: 0!important;
+
     .brand-logo{
       width: 32px;
       height: 32px;
@@ -15,23 +128,169 @@ header{
       align-items: center;
       align-content: center;
       gap:20px;
+      color: #616161;
+    }
+
+
+    .arama{
+      border: 1px solid lightsteelblue;
+      height: 35px;
+      width: 210px;
+      padding-left: 10px;
+      font-size: 14px;
+      right: 0;
+      float: right;
+      margin-top: 7px;
+    }
+
+
+    .arama-sonuc{
+      background: white;
+      border: 1px solid lightsteelblue;
+      position: absolute;
+      display: none;
+      right: 0;
+      margin-right: 15px;
+      width: 210px;
+      margin-top: 40px;
+      z-index: 9999;
+
+
+      ul{
+        list-style: none;
+        padding: 0;
+        padding-left: 10px;
+        font-size: 14px;
+
+        li{
+          margin-top: 15px;
+          font-size: 13px;
+          color: rgb(51, 122, 183);
+          cursor: pointer;
+
+          a{
+            font-size: 13px;
+            color: rgb(51, 122, 183);
+            cursor: pointer;
+          }
+        }
+
+      }
+
+    }
+
+
+  }
+}
+
+
+.kategoriler{
+
+
+  .list-baslik{
+    margin-top: 50px;
+
+  }
+
+  .list{
+    width: 100%;background: white;
+    border: 2px solid lightsteelblue;
+    padding: 20px;
+    margin-top: 50px;
+
+    .list-img{
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .aciklama{
+      width: 100%;
+      padding: 20px;
+
+    }
+
+    a:hover{
+      text-decoration: none;
+    }
+
+
+    .date{
+      top: 0;
+      right: 0;
+      float: right;
+      font-size: 12px;
+
+    }
+
+  }
+
+}
+
+footer{
+
+  .footer{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border: 1px solid lightsteelblue!important;
+    /*   background: rgb(51,51,51); */
+    background: white;
+    color: #337ab7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 50px;
+
+    a{
+      color: #337ab7;
     }
   }
 }
 
-footer{
-  .footer{
-    width: 100%;
-    height: 35px;
-    background: rgb(51,51,51);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
 
-    a{
-      color: white;
+/* mobil için */
+@media (max-width: 499px) {
+
+  header{
+
+    nav{
+      .arama{
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+    }
+
+  }
+
+  .anasayfa{
+    .list{
+
+      .date{
+        display: none;
+      }
+
+      .aciklama{
+        padding: 0;
+
+        h2{
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
     }
   }
+
+
+  footer{
+    .footer{
+      a{
+        font-size: 12px;
+      }
+    }
+  }
+
 }

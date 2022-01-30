@@ -1,11 +1,21 @@
-<div class="footer">
+<div class="footer bg-light">
     <th:block th:each="setting : ${settings}">
 
 
         <a th:if="${setting.key == 'FOOTER_DESC'}" target="_blank" href="http://linkedin.com/in/okanbahadirsoygur/" th:text="${'MIT Licance Copyright (c) 2022 '+ setting.value}"></a>
 
+        <a th:if="${setting.key == 'GITHUB_LINK'}" target="_blank" th:href="${setting.value}">Get Source Code on Github</a>
+
     </th:block>
 
 </div>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- default js -->
+<script src="/js/blog.js"></script>

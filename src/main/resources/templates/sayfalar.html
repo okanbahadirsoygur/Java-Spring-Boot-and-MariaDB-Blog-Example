@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- snippets/head.html dosyasının içerisindeki head tag'ındaki her şeyi insert et (thymeleaf kullanmanın avantajları) -->
+<head th:insert="snippets/head.html"></head>
+
+
+
+<body>
+
+<!-- snippets/header.html dosyasının içerisindeki header tag'ındaki her şeyi insert et (thymeleaf kullanmanın avantajları)  -->
+<header th:insert="snippets/header.html"> </header>
+
+<!-- <a th:text="${user}"></a> -->
+
+
+<main class="sayfalar">
+
+
+
+
+
+    <!-- en son gönderilen 10 post -->
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12">
+
+
+                <center><h2 th:text="${sayfa.getTitle()}"></h2></center>
+
+                <div class="one-cikan-resim">
+                    <img th:src="${sayfa.getImgUrl()}">
+                </div>
+
+
+                <h2 th:text="${sayfa.getSubTitle()}"></h2>
+
+                <!-- data'daki html verilerini ekrana basabilmemiz için th:utext türünde bir tanımlama yapmak zorundayız -->
+
+             <th:block th:utext="${sayfa.getData()}"></th:block>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+</main>
+
+
+
+
+
+
+
+
+
+
+</body>
+<!-- snippets/header.html dosyasının içerisindeki header tag'ındaki her şeyi insert et (thymeleaf kullanmanın avantajları)  -->
+<footer th:insert="snippets/footer.html"></footer>
+</html>
