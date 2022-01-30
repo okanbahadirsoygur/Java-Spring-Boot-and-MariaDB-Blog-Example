@@ -1,0 +1,19 @@
+
+    <title th:text="${title}"></title>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Java Spring Blog</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class=""><a href="/">Ana Sayfa</a></li>
+
+                <th:block th:each="categorie: ${categories}">
+                    <li><a th:href="@{'/kategoriler/' + ${categorie.slug}}" th:text="${categorie.title}"></a></li>
+                </th:block>
+
+
+            </ul>
+        </div>
+    </nav>
