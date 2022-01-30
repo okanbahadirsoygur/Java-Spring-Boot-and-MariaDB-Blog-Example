@@ -21,8 +21,16 @@
             <!-- Swiper -->
             <div class="swiper anasayfaSlider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="https://images.alphacoders.com/681/681587.png"></div>
-                    <div class="swiper-slide"><img src="https://images2.alphacoders.com/524/524240.jpg"></div>
+                    <th:block th:each="slider : ${sliders}">
+
+                        <div class="swiper-slide" th:alt="${slider.getTitle()}">
+                            <a th:href="${slider.getUrl()}">
+                            <img th:src="${slider.getImg_url()}">
+                            </a>
+                        </div>
+
+                    </th:block>
+
                 </div>
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>

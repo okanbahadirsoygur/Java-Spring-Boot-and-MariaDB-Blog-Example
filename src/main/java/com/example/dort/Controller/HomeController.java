@@ -1,13 +1,7 @@
 package com.example.dort.Controller;
 
-import com.example.dort.Entities.Categories;
-import com.example.dort.Entities.Home;
-import com.example.dort.Entities.Pages;
-import com.example.dort.Entities.Settings;
-import com.example.dort.repos.CategoriesRepos;
-import com.example.dort.repos.HomeRepos;
-import com.example.dort.repos.PagesRepos;
-import com.example.dort.repos.SettingsRepos;
+import com.example.dort.Entities.*;
+import com.example.dort.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +34,13 @@ public class HomeController {
     @Autowired
     SettingsRepos settingsRepos;
 
+    @Autowired
+    SliderRepos sliderRepos;
+
     @GetMapping(value = "/api")
     public List<Home> api(@RequestParam(required = true, defaultValue = "", value = "id") String id) {
 
+         //kullanılmıyor
         Home h = new Home();
 
         h.setIsim("deneme123");
@@ -72,6 +70,7 @@ public class HomeController {
         modelAndView.addObject("categories", kategorileriGetir());
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("sonOnSayfalar", sonOnSayfayiGetir());
+        modelAndView.addObject("sliders",sliderGetir());
 
         //html sayfamızın adı.
         modelAndView.setViewName("index");
@@ -189,6 +188,17 @@ public class HomeController {
         settingsRepos.findAll().forEach(settingsList::add);
 
         return settingsList;
+
+    }
+
+    public List<Slider> sliderGetir(){
+
+        List<Slider> sliderList = new ArrayList<>();
+
+        sliderRepos.findAll().forEach(sliderList::add);
+
+        return sliderList;
+
 
     }
 
