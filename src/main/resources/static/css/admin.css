@@ -16,6 +16,7 @@
   color: white;
   padding: 20px;
   display: block;
+  z-index: 1;
 }
 
 .sol-menu .baslik {
@@ -90,6 +91,22 @@
 
 .sol-menu .menu ul .active a {
   color: white;
+}
+
+.sol-menu .licence {
+  bottom: 0;
+  position: fixed;
+  z-index: 2;
+  text-align: center;
+  color: #6cb44a;
+  text-decoration: none;
+  margin-bottom: 10px;
+  width: 20%;
+}
+
+.sol-menu .licence a {
+  text-decoration: none;
+  color: #6cb44a;
 }
 
 .admin-container {

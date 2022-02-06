@@ -16,6 +16,7 @@
   color: white;
   padding: 20px;
   display: block;
+  z-index: 1;
 
   .baslik{
     width: 100%;
@@ -100,6 +101,23 @@
 
 
   }
+
+  .licence{
+    bottom: 0;
+    position: fixed;
+    z-index: 2;
+    text-align: center;
+    color: #6cb44a;
+    text-decoration: none;
+    margin-bottom: 10px;
+    width: 20%;
+
+    a{
+      text-decoration: none;
+      color: #6cb44a;
+    }
+  }
+
 }
 
 

@@ -2,7 +2,7 @@
     <th:block th:each="setting : ${settings}">
 
 
-        <a th:if="${setting.key == 'FOOTER_DESC'}" target="_blank" href="http://linkedin.com/in/okanbahadirsoygur/" th:text="${'MIT Licance Copyright (c) 2022 '+ setting.value}"></a>
+        <a th:if="${setting.key == 'FOOTER_DESC'}" target="_blank" href="http://linkedin.com/in/okanbahadirsoygur/" th:text="${'MIT Licence Copyright (c) 2022 '+ setting.value}"></a>
 
         <a th:if="${setting.key == 'GITHUB_LINK'}" target="_blank" th:href="${setting.value}">Get Source Code on Github</a>
 
