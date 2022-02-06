@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/snippets/head.html"></head>
+
+<header th:insert="admin/snippets/header.html"></header>
+
+<body>
+
+
+<div class="admin-container">
+
+
+    <div class="item-container">
+        <form method="post" action="/admin/settings/update">
+
+        <div class="baslik">
+            <label>Settings</label>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <td>Key</td>
+                <td>Description</td>
+                <td>Value</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="setting: ${settings}">
+                <td th:text="${setting.getKey()}"></td>
+                <td th:text="${setting.getDescription()}"></td>
+                <td><input th:name="${setting.getKey()}" type="text" th:value="${setting.getValue()}" required maxlength="255"></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        </br>
+
+        <input class="save" type="submit" value="Save">
+        </form>
+    </div>
+
+
+
+
+</div>
+
+
+
+</body>
+
+<footer th:insert="admin/snippets/footer"></footer>
+</html>

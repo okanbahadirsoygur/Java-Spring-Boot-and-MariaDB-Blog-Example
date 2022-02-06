@@ -1,0 +1,21 @@
+<div class="sol-menu">
+
+    <div class="baslik">
+        <img src="https://spring.io/images/projects/spring-framework-640ad1b04f7efa89e0f0f7353e6b5e02.svg?v=2">
+        <label>Spring Boot</br>Dashboard</label>
+
+    </div>
+
+
+    <div class="menu">
+
+        <ul>
+            <li th:classappend="${slug_pages} ? 'active': ''"><a href="/admin/posts">Pages</a></li>
+            <li th:classappend="${slug_categories} ? 'active': ''"><a href="/admin/categories">Categories</a></li>
+            <li th:classappend="${slug_sliders} ? 'active': ''"><a href="/admin/sliders">Sliders</a></li>
+            <li th:classappend="${slug_settings} ? 'active': ''"><a href="/admin/settings">Settings</a></li>
+        </ul>
+
+    </div>
+
+</div>

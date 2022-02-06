@@ -1,0 +1,204 @@
+@charset "UTF-8";
+/**
+ * Java Spring Boot and MariaDB Blog Example
+ * admin panel scss style 1
+ * @author okan bahadır soygür
+ * 06-02-2022
+ */
+.sol-menu {
+  position: fixed;
+  height: 100%;
+  width: 20%;
+  left: 0;
+  top: 0;
+  background: white;
+  border-right: 2px solid #1A476F;
+  color: white;
+  padding: 20px;
+  display: block;
+}
+
+.sol-menu .baslik {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sol-menu .baslik label {
+  font-size: 30px;
+  color: #1A476F;
+}
+
+.sol-menu .baslik img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.sol-menu .menu {
+  display: block;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.sol-menu .menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sol-menu .menu ul li {
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  color: #1A476F;
+  font-size: 25px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  border-bottom: 1px solid #4F779B;
+  padding-left: 5px;
+  min-height: 40px;
+}
+
+.sol-menu .menu ul li:hover {
+  background: #6cb44a;
+  color: white;
+}
+
+.sol-menu .menu ul li:hover a {
+  color: white;
+}
+
+.sol-menu .menu ul li a {
+  color: #1A476F;
+  font-size: 25px;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+
+.sol-menu .menu ul .active {
+  background: #6cb44a;
+  color: white;
+}
+
+.sol-menu .menu ul .active a {
+  color: white;
+}
+
+.admin-container {
+  width: 65%;
+  margin-left: 26%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-container .item-container {
+  border: 1px solid #1A476F;
+  width: 100%;
+  padding: 20px;
+}
+
+.admin-container .item-container .baslik {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.admin-container .item-container .baslik label {
+  font-size: 28px;
+  color: #1A476F;
+}
+
+.admin-container .item-container input[type="text"] {
+  height: 35px;
+  border: 1px solid #333;
+  padding-left: 5px;
+  font-size: 18px;
+  min-width: 200px;
+  width: 100%;
+}
+
+.admin-container .item-container textarea {
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid #333;
+}
+
+.admin-container .item-container label {
+  font-size: 18px;
+  color: black;
+}
+
+.admin-container .item-container select {
+  height: 39px;
+  min-width: 200px;
+  border: 1px solid #1A476F;
+  font-size: 18px;
+  width: 100%;
+}
+
+.admin-container .item-container .ck-editor__editable_inline {
+  min-height: 400px;
+}
+
+.admin-container .item-container input[type="button"], .admin-container .item-container input[type="submit"] {
+  height: 39px;
+  border: 1px solid #1A476F;
+  padding-left: 5px;
+  font-size: 18px;
+  text-align: center;
+  min-width: 100px;
+  color: white;
+  background: #1A476F;
+  cursor: pointer;
+}
+
+.admin-container .item-container input[type="button"]:hover, .admin-container .item-container input[type="submit"]:hover {
+  background: #4F779B;
+}
+
+.admin-container .item-container table {
+  border: 1px solid #1A476F;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.admin-container .item-container table thead {
+  border-bottom: 1px solid #1A476F;
+  margin-bottom: 20px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.admin-container .item-container table tbody tr {
+  margin-bottom: 20px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.admin-container .item-container table tbody tr td input[type="text"] {
+  width: 95%;
+}
+
+.admin-container .item-container .save {
+  float: right;
+}

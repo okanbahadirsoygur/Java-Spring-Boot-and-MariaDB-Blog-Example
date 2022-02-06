@@ -1,0 +1,235 @@
+/**
+ * Java Spring Boot and MariaDB Blog Example
+ * admin panel scss style 1
+ * @author okan bahadır soygür
+ * 06-02-2022
+ */
+
+.sol-menu{
+  position: fixed;
+  height: 100%;
+  width: 20%;
+  left: 0;
+  top: 0;
+  background: white;
+  border-right: 2px solid #1A476F;
+  color: white;
+  padding: 20px;
+  display: block;
+
+  .baslik{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+
+    label{
+      font-size: 30px;
+      color: #1A476F;
+
+    }
+
+    img{
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+
+  }
+
+  .menu{
+    display: block;
+    width: 100%;
+    margin-top: 50px;
+
+    ul{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+
+
+      li{
+        cursor: pointer;
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        color: #1A476F;
+        font-size: 25px;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        border-bottom: 1px solid #4F779B;
+        padding-left: 5px;
+        min-height: 40px;
+
+        &:hover{
+          background: #6cb44a;
+          color: white;
+
+          a{
+            color: white;
+          }
+        }
+
+
+
+        a{
+          color: #1A476F;
+          font-size: 25px;
+          text-decoration: none;
+          display: inline-block;
+          width: 100%;
+        }
+
+      }
+
+      .active{
+        background: #6cb44a;
+        color: white;
+
+        a{
+          color: white;
+        }
+      }
+
+    }
+
+
+  }
+}
+
+
+.admin-container{
+  width: 65%;
+  margin-left: 26%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  .item-container{
+
+    border: 1px solid #1A476F;
+    width: 100%;
+    padding: 20px;
+
+
+
+    .baslik{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      justify-items: center;
+      align-content: center;
+      margin-top: 10px;
+      margin-bottom: 50px;
+
+      label{
+        font-size: 28px;
+        color: #1A476F;
+      }
+    }
+
+
+    input[type="text"]{
+      height: 35px;
+      border: 1px solid #333;
+      padding-left: 5px;
+      font-size: 18px;
+      min-width: 200px;
+      width: 100%;
+
+    }
+
+    textarea{
+      width: 100%;
+      min-height: 200px;
+      border: 1px solid #333;
+    }
+
+    label{
+      font-size: 18px;
+      color: black;
+    }
+
+    select{
+      height: 39px;
+      min-width: 200px;
+      border: 1px solid #1A476F;
+      font-size: 18px;
+      width: 100%;
+
+
+    }
+
+    .ck-editor__editable_inline {
+      min-height: 400px;
+    }
+
+
+    input[type="button"], input[type="submit"]{
+
+      height: 39px;
+      border: 1px solid #1A476F;
+      padding-left: 5px;
+      font-size: 18px;
+      text-align: center;
+      min-width: 100px;
+      color: white;
+      background: #1A476F;
+      cursor: pointer;
+
+    &:hover{
+      background: #4F779B;
+    }
+
+    }
+
+
+    table{
+      border: 1px solid #1A476F;
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+
+      thead{
+        border-bottom: 1px solid #1A476F;
+        margin-bottom: 20px;
+        height: 40px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      tbody{
+        tr{
+
+          margin-bottom: 20px;
+          height: 40px;
+          font-size: 16px;
+
+          td{
+            input[type="text"]{
+              width: 95%;
+            }
+          }
+        }
+      }
+
+    }
+
+    .save{
+      float: right;
+    }
+
+  }
+
+}

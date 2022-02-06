@@ -26,14 +26,18 @@
              <!--   <li class=""><a href="/">Home</a></li> -->
 
                 <th:block th:each="categorie: ${categories}">
+
+
                     <li><a th:href="@{'/categories/' + ${categorie.slug}}" th:text="${categorie.title}"></a></li>
+
+
                 </th:block>
 
 
             </ul>
 
 
-                <input type="text" name="arama" onkeyup="arama(this)" placeholder="Search" class="arama" maxlength="35">
+                <input type="text" autocomplete="off" name="arama" onkeyup="arama(this)" placeholder="Search" class="arama" maxlength="35">
                 <div class="arama-sonuc">
                     <ul class="arama-ul">
 

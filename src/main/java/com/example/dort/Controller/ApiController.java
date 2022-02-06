@@ -14,10 +14,9 @@ import java.util.List;
 public class ApiController {
 
 
-
-    /*
-      Headerdaki arama alanı pure javascript(fetch) ile buraya bağlanır, Pagesrepos ile gelen değer sayfalar içerisinde Like ile aranır.
-       Daha sonra gelen sonuçları ekrana yazar.
+    /**
+     *  Header'daki arama alanı pure javascript ile buraya bağlanır(fetch), Pagesrepos ile gelen değer sayfalar içerisinde Like ile aranır.
+     *  Daha sonra gelen sonuçları ekrana yazar.
      */
 
 

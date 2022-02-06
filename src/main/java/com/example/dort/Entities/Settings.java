@@ -16,6 +16,8 @@ public class Settings {
 
     private String value;
 
+    private String description;
+
 
     public Long getId() {
         return id;
@@ -34,11 +36,19 @@ public class Settings {
         return value;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setKey(String key) {
         this.key = key;
     }
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
