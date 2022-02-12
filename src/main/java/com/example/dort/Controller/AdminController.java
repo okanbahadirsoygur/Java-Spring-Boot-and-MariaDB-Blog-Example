@@ -241,7 +241,7 @@ public class AdminController {
 
         List<Slider> sliderList = new ArrayList<>();
 
-        sliderRepos.findAll().forEach(sliderList::add);
+        sliderRepos.getSlidersOrderByRank().forEach(sliderList::add);
 
         return sliderList;
 
@@ -252,7 +252,7 @@ public class AdminController {
 
         List<Categories> categoriesList = new ArrayList<>();
 
-        categoriesRepos.findAll().forEach(categoriesList::add);
+        categoriesRepos.getCategoriesOrderBySira().forEach(categoriesList::add);
 
         return categoriesList;
 

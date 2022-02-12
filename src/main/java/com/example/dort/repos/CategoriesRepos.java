@@ -22,4 +22,10 @@ public interface CategoriesRepos extends JpaRepository<Categories, Long> {
     @Modifying
     @Query(value = "update categories set title = ?2, slug = ?3, description = ?4, rank = ?5 where id = ?1",nativeQuery = true)
     void updateCategorieById(Long id, String title, String slug, String description, Long rank);
+
+
+
+    @Query("select c from Categories c order by c.rank")
+    List<Categories> getCategoriesOrderBySira();
+
 }

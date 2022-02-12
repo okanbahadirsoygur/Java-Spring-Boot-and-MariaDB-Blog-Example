@@ -175,7 +175,7 @@ public class HomeController {
         List<Categories> categoriesList = new ArrayList<>();
 
        //Crud repos yardımıyla categories tablomuzdaki bütün dataları categoriesRepos adlı ArrayList'e ekleyelim.
-        categoriesRepos.findAll().forEach(categoriesList::add);
+        categoriesRepos.getCategoriesOrderBySira().forEach(categoriesList::add);
 
         return categoriesList;
 
