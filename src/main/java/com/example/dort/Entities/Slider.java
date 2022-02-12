@@ -1,15 +1,20 @@
 package com.example.dort.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "slider")
 @Entity
 public class Slider {
+
+    /**
+     * <p>@GeneratedValue(strategy=GenerationType.IDENTITY)</p>
+     * <p>Eğer bu şekilde annotation tanımlaması yapmaz isek yeni satır ekler iken; SliderRepos.save(); dediğimiz zaman bizden id değeri bekleyecektir.</p>
+     * <p>Oysa ki bizim id değerimiz otomatik artan bir değer olduğu için bizim girmemize gerek yok. Bu annotation id değerini otomatik artmasını ve bizim id değeri girmememizi sağlıyor</p>
+     *
+     */
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     private String title;

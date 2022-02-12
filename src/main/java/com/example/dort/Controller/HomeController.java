@@ -197,7 +197,8 @@ public class HomeController {
 
         List<Slider> sliderList = new ArrayList<>();
 
-        sliderRepos.findAll().forEach(sliderList::add);
+        //rank'a göre küçükten büyüge sıralı getirelim
+        sliderRepos.getSlidersOrderByRank().forEach(sliderList::add);
 
         return sliderList;
 

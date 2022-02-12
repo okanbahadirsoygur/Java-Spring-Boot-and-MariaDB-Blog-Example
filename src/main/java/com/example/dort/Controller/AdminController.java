@@ -136,6 +136,26 @@ public class AdminController {
     }
 
 
+
+    @PostMapping(value = "/admin/sliders/add")
+    public int sliders_add(@RequestBody Slider slider){
+
+        //slider objesi yaratalım. Daha sonra bize json ile gönderilen slider objesindeki değerleri burdaki objeye yollayalım.
+        Slider sliderEntities = new Slider();
+
+        sliderEntities.setTitle(slider.getTitle());
+        sliderEntities.setImg_url(slider.getImg_url());
+        sliderEntities.setUrl(slider.getUrl());
+
+        //repostry'e sliderEntities'i yollayalım veritabanına eklesin.
+        sliderRepos.save(sliderEntities);
+
+        return 1;
+
+
+    }
+
+
     public List<Settings> ayarlariGetir(){
 
         List<Settings> settingsList = new ArrayList<>();

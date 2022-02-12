@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306:8889
--- Generation Time: Jan 30, 2022 at 06:39 PM
+-- Generation Time: Feb 12, 2022 at 12:15 PM
 -- Server version: 10.6.4-MariaDB
--- PHP Version: 7.3.24
+-- PHP Version: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -77,19 +77,20 @@ INSERT INTO `pages` (`id`, `sub_id`, `categorie_id`, `slug`, `title`, `sub_title
 CREATE TABLE `settings` (
                             `id` int(11) NOT NULL,
                             `key` varchar(255) NOT NULL,
-                            `value` text NOT NULL
+                            `value` text NOT NULL,
+                            `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `key`, `value`) VALUES
-                                                  (1, 'FOOTER_LICANCE', 'MIT'),
-                                                  (2, 'FOOTER_DESC', 'Okan Bahadır Soygür'),
-                                                  (3, 'LOGO_URL', 'https://spring.io/images/projects/spring-framework-640ad1b04f7efa89e0f0f7353e6b5e02.svg?v=2'),
-                                                  (4, 'LOGO_TEXT', 'Java Spring Boot Blog'),
-                                                  (5, 'GITHUB_LINK', 'https://github.com/okanbahadirsoygur/Java-Spring-Boot-and-MariaDB-Blog-Example');
+INSERT INTO `settings` (`id`, `key`, `value`, `description`) VALUES
+                                                                 (1, 'FOOTER_LICANCE', 'MIT', 'footer also appears at the bottom'),
+                                                                 (2, 'FOOTER_DESC', 'Okan Bahadır Soygür', 'footer also appears at the bottom'),
+                                                                 (3, 'LOGO_URL', 'https://spring.io/images/projects/spring-framework-640ad1b04f7efa89e0f0f7353e6b5e02.svg?v=2', 'url to go to when you press logo'),
+                                                                 (4, 'LOGO_TEXT', 'Java Spring Boot Blog', 'text to be written next to the logo'),
+                                                                 (5, 'GITHUB_LINK', 'https://github.com/okanbahadirsoygur/Java-Spring-Boot-and-MariaDB-Blog-Example', 'github link');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ INSERT INTO `settings` (`id`, `key`, `value`) VALUES
 CREATE TABLE `slider` (
                           `id` int(11) NOT NULL,
                           `title` text DEFAULT NULL,
-                          `img_url` text NOT NULL,
+                          `img_url` text DEFAULT NULL,
                           `rank` int(11) DEFAULT 0,
                           `url` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -110,8 +111,11 @@ CREATE TABLE `slider` (
 --
 
 INSERT INTO `slider` (`id`, `title`, `img_url`, `rank`, `url`) VALUES
-                                                                   (1, 'Slider 1', 'https://www.rspca.org.uk/documents/1494939/0/what+to+do+with+stray+cats+and+kittens+%283%29.jpg/886bc0d5-1dc5-d2bf-eabd-473fd4d99886?t=1618404272031', 0, NULL),
-                                                                   (2, 'Slider 2', 'https://api.time.com/wp-content/uploads/2022/01/Biden-Cat-01.jpg?w=1600&quality=70', 0, NULL);
+                                                                   (1, 'Slider 1', 'https://www.rspca.org.uk/documents/1494939/0/what+to+do+with+stray+cats+and+kittens+%283%29.jpg/886bc0d5-1dc5-d2bf-eabd-473fd4d99886?t=1618404272031', 2, 'http://google.com'),
+                                                                   (2, 'Slider 2', 'https://api.time.com/wp-content/uploads/2022/01/Biden-Cat-01.jpg?w=1600&quality=70', 1, 'http://facebook.com'),
+                                                                   (7, 'Star Wars', 'https://www.nestle-cereals.com/tr/sites/g/files/fawtmp401/files/styles/stage_visual_large/public/d7/nq_starwars_slider_2048x1152_3.jpg?itok=yIDk6tTz', 4, 'http://instagram.com'),
+                                                                   (11, 'yaz', 'https://www.lifewire.com/thmb/BQdMoVsHlk8HaZiZ2tv0elBfFO8=/1920x1080/filters:no_upscale():max_bytes(150000):strip_icc()/tropical-beach-wallpaper-beach-backgrounds-587fbb765f9b584db3241860.jpg', 1, 'dsfdfs'),
+                                                                   (12, 'star', 'https://wallpaperaccess.com/full/1347951.jpg', 0, 'fdsdfsfds');
 
 -- --------------------------------------------------------
 
@@ -219,7 +223,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `urunler`

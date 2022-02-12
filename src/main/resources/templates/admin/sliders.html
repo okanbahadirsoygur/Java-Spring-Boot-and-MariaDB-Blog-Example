@@ -16,11 +16,40 @@
 
 
     <div class="item-container">
-        <form method="post" action="/admin/settings/update">
+
 
             <div class="baslik">
                 <label>Sliders</label>
             </div>
+
+
+        <table>
+            <thead>
+            <tr>
+                <td>Title*</td>
+                <td>Image Url*</td>
+                <td>Rank*</td>
+                <td>Url*</td>
+                <td>Process*</td>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><input type="text"    id="title"   required maxlength="50"  placeholder="Slider title*"></td>
+                    <td><input type="text"    id="img"    required maxlength="255" placeholder="Slider image url*"></td>
+                    <td><input type="number"  id="rank"   required maxlength="3"   placeholder="Slider rank*"></td>
+                    <td><input type="text"    id="url"    required maxlength="255" placeholder="Slider url*"></td>
+                    <td>
+                        <input onclick="addconfirm()"  class="ekle" type="button" value="Add">
+
+                    </td>
+                </tr>
+            </tbody>
+
+
+        </table>
+
 
             <table>
                 <thead>
@@ -28,6 +57,7 @@
                     <td>Title</td>
                     <td>Image Url</td>
                     <td>Rank</td>
+                    <td>Url</td>
                     <td>Process</td>
                 </tr>
                 </thead>
@@ -35,7 +65,6 @@
                 <tbody>
 
                 <tr th:each="slider: ${sliders}">
-
 
                     <td><input type="text" th:id="${'name_'+slider.getId()}" th:name="${'name_'+slider.getId()}" th:value="${slider.getTitle()}" required maxlength="50"></td>
                     <td><input type="text" th:id="${'img_'+slider.getId()}" th:name="${'img_'+slider.getId()}" th:value="${slider.getImg_url()}" required maxlength="255"></td>
@@ -46,22 +75,15 @@
                         <input onclick="deleteconfirm(this)" th:name="${'delete_'+slider.getId()}" th:id="${'update_'+slider.getId()}" class="delete" type="button" value="Delete">
                     </td>
 
-
-
                 </tr>
 
-
                 </tbody>
+
             </table>
 
             </br>
 
-
-        </form>
     </div>
-
-
-
 
 </div>
 
@@ -118,8 +140,8 @@
 
 
 
-            //java tarafında bunu Entities,class,obje (ne derseniz artık) bağlayacağım için, Enitities'deki değişkenler ile aynı isimlere sahip olmak zorunda.
-            //Eğer farklı isimlerde yollar isem, Entitities burdaki değişkenleri kendi içindeki değişkenler ile eşleyemeyecektir ve veriler tutulamayacaktır!!!
+            //java tarafında bunu Entities,class,obje (ne derseniz artık) bağlayacağım için, Entities'deki değişkenler ile aynı isimlere sahip olmak zorunda.
+            //Eğer farklı isimlerde yollar isem, Entities burdaki değişkenleri kendi içindeki değişkenler ile eşleyemeyecektir ve veriler tutulamayacaktır!!!
             let data = {id : id, title : title_, img_url: img_, rank : rank_, url: url_};
 
             console.log(data);
@@ -141,6 +163,55 @@
 
         }//evet dedi ise
 
+    }
+
+
+
+    function addconfirm(){
+
+        let url = document.querySelector("#url").value;
+        let title = document.querySelector("#title").value;
+        let img = document.querySelector("#img").value;
+        let rank = document.querySelector("#rank").value;
+
+
+        //bütün degerler girilmiş ise
+        if(isEmpty(url) == false && isEmpty(title) == false && isEmpty(img) == false && isEmpty(rank) == false){
+
+            //java tarafında bunu Entities,class,obje (ne derseniz artık) bağlayacağım için, Entities'deki değişkenler ile aynı isimlere sahip olmak zorunda.
+            //Eğer farklı isimlerde yollar isem, Entities burdaki değişkenleri kendi içindeki değişkenler ile eşleyemeyecektir ve veriler tutulamayacaktır!!!
+            let data = {title : title, img_url: img, rank : rank, url: url};
+
+            console.log(data);
+
+            fetch("/admin/sliders/add", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+
+              location.reload();
+
+            });
+
+        }else{
+            alert("please fill in all fields*");
+        }
+
+
+    }
+
+    function isEmpty(value){
+
+        if(value != null && value != ""){
+            return false;
+        }else {
+            return true;
+        }
     }
 
 </script>
