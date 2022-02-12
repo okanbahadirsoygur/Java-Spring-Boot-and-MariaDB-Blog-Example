@@ -94,6 +94,8 @@
 
         a{
           color: white;
+          width: 95%;
+          margin-left: 5%;
         }
       }
 
@@ -157,7 +159,7 @@
     }
 
 
-    input[type="text"]{
+    input[type="text"], input[type="number"]{
       height: 35px;
       border: 1px solid #333;
       padding-left: 5px;
@@ -228,6 +230,8 @@
       }
 
       tbody{
+        padding: 20px;
+
         tr{
 
           margin-bottom: 20px;
@@ -238,6 +242,32 @@
             input[type="text"]{
               width: 95%;
             }
+
+            .new{
+            background: #6cb44a;
+
+              &:hover{
+                background: green;
+              }
+            }
+
+            .update{
+              background: #e79821;
+
+              &:hover{
+                background: #ce8511;
+              }
+            }
+
+
+            .delete{
+              background: red;
+
+              &:hover{
+                background: darkred;
+              }
+            }
+
           }
         }
       }

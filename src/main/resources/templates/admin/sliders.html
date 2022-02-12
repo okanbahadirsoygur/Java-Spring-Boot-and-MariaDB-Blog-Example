@@ -1,0 +1,146 @@
+<!--
+ Bu sayfada delete, update, insert işlemleri farklı bir örnek olması açısından javascript ile yapılmıştır.
+ Amaç farklı bakış açısı görmektir.
+ -->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/snippets/head.html"></head>
+
+<header th:insert="admin/snippets/header.html"></header>
+
+<body>
+
+
+<div class="admin-container">
+
+
+    <div class="item-container">
+        <form method="post" action="/admin/settings/update">
+
+            <div class="baslik">
+                <label>Sliders</label>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>Image Url</td>
+                    <td>Rank</td>
+                    <td>Process</td>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="slider: ${sliders}">
+
+
+                    <td><input type="text" th:id="${'name_'+slider.getId()}" th:name="${'name_'+slider.getId()}" th:value="${slider.getTitle()}" required maxlength="50"></td>
+                    <td><input type="text" th:id="${'img_'+slider.getId()}" th:name="${'img_'+slider.getId()}" th:value="${slider.getImg_url()}" required maxlength="255"></td>
+                    <td><input type="number" th:id="${'rank_'+slider.getId()}" th:name="${'rank_'+slider.getId()}" th:value="${slider.getRank()}" required maxlength="3"></td>
+                    <td><input type="text" th:id="${'url_'+slider.getId()}" th:name="${'url_'+slider.getId()}" th:value="${slider.getUrl()}" required maxlength="255"></td>
+                    <td>
+                        <input onclick="updateconfirm(this)" th:name="${'update_'+slider.getId()}" th:id="${'update_'+slider.getId()}" class="update" type="button" value="Update">
+                        <input onclick="deleteconfirm(this)" th:name="${'delete_'+slider.getId()}" th:id="${'update_'+slider.getId()}" class="delete" type="button" value="Delete">
+                    </td>
+
+
+
+                </tr>
+
+
+                </tbody>
+            </table>
+
+            </br>
+
+
+        </form>
+    </div>
+
+
+
+
+</div>
+
+
+
+</body>
+
+<footer th:insert="admin/snippets/footer"></footer>
+</html>
+
+<script>
+
+    function deleteconfirm(value){
+
+        let confirm_ = confirm("Do you want to delete?");
+
+        if(confirm_){
+
+            let data = {id: value.name.split("_")[1]};
+            console.log(data);
+
+             fetch("/admin/sliders/delete", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+        console.log("Request complete! response:", res);
+        location.reload();
+            });
+
+        }// evet dedi ise
+
+    }
+
+
+    function updateconfirm(deger){
+
+        let confirm_ = confirm("Do you want to update?");
+
+        if(confirm_){
+
+            //update butonunun id değeri ilgili slider'in id değerini taşır. Bunu parçalayıp çekelim.
+            let id = deger.id.split("_")["1"];
+
+            //slider'e ait bilgileri çekelim.
+            let title_ = document.querySelector("#name_"+id).value;
+            let img_ = document.querySelector("#img_"+id).value;
+            let rank_ = document.querySelector("#rank_"+id).value;
+            let url_ = document.querySelector("#url_"+id).value;
+
+
+
+
+            //java tarafında bunu Entities,class,obje (ne derseniz artık) bağlayacağım için, Enitities'deki değişkenler ile aynı isimlere sahip olmak zorunda.
+            //Eğer farklı isimlerde yollar isem, Entitities burdaki değişkenleri kendi içindeki değişkenler ile eşleyemeyecektir ve veriler tutulamayacaktır!!!
+            let data = {id : id, title : title_, img_url: img_, rank : rank_, url: url_};
+
+            console.log(data);
+
+            fetch("/admin/sliders/update", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+
+                location.reload();
+
+            });
+
+
+        }//evet dedi ise
+
+    }
+
+</script>

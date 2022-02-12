@@ -104,6 +104,30 @@
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+                            <div class="categorie">
+
+
+                                <!-- Bütün kategorileri each ile döndürelim -->
+                                <th:block th:each="categorie : ${categories}">
+
+                                    <!-- ilgili postun categorie.id değeri ile dönen categorie'nin id değeri eşleşiyor ise categorie başlığını yazalım. -->
+                                    <th:block th:if="${categorie.getId() == sonOnSayfa.getCategorieId()}">
+
+                                       <a th:href="${'/categories/'+categorie.getSlug()}"> <p th:text="${categorie.getTitle()}"></p></a>
+
+                                    </th:block>
+
+
+                                </th:block>
+
+                            </div>
+
+                        </div>
+                    </div>
+
 
                 </div>
 

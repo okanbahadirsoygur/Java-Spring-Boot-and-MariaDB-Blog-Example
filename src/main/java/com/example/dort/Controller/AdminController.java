@@ -1,7 +1,10 @@
 package com.example.dort.Controller;
 
 import com.example.dort.Entities.Settings;
+import com.example.dort.Entities.Slider;
 import com.example.dort.repos.SettingsRepos;
+import com.example.dort.repos.SliderRepos;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +18,9 @@ public class AdminController {
 
     @Autowired
     SettingsRepos settingsRepos;
+
+    @Autowired
+    SliderRepos sliderRepos;
 
 
     /**
@@ -57,8 +63,14 @@ public class AdminController {
      * </p>
      *
      * <p>
-     * RequestParam annotation'ı ile gelen json verilerini, tanımladığımız değişken isimleri ile eşleyip yakalayabiliyoruz.
+     * RequestParam annotation'ı ile gelen form verilerini, tanımladığımız değişken isimleri ile eşleyip yakalayabiliyoruz.
      * </p>
+     *
+     * <p>
+     * RedirectView nesnesi ile işlemler bittikten sonra kullanıcıyı geldiği sayfaya yollayalım.
+     * </p>
+     *
+     * <p>RequestParam form datası post edildiğinde kullanılıyor. Javascript ile json datası yollanmak istenir ise o zaman RequestBody kullanmamız gerekiyor, ve gelen json datasını class ile eşlemek gerekiyor. Değişkende tutulamıyor. Bir class(Entities) bağlamamız gerekiyor</p>
      */
     @PostMapping("/admin/settings/update")
     public RedirectView settings_update(@RequestParam String LOGO_URL, String FOOTER_DESC, String FOOTER_LICANCE, String LOGO_TEXT, String GITHUB_LINK){
@@ -79,6 +91,51 @@ public class AdminController {
 
 
 
+
+    @GetMapping("/admin/sliders")
+    public ModelAndView sliders(){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("slug_sliders", true);
+        modelAndView.addObject("sliders", sliderlariGetir());
+
+        modelAndView.setViewName("/admin/sliders");
+
+        return modelAndView;
+
+    }
+
+    /**
+     * <p>Javascript(fetch) ile id değerini json formatında buraya yolluyorum.</p>
+     * <p>RequestBody ile bu data'yı alıp, Slider objesi(entities,class) ile eşliyoruz.
+     * Json formatındaki data'ları değişkenlerde tutamıyorum, belki bir yolu vardır ama ben bulamadım. Objeler üzerinden json datalarını eşleyip, erişimi bu şekilde gerçekleştiriyoruz.</p>
+     */
+
+    @PostMapping(value = "/admin/sliders/delete")
+    public String sliders_delete(@RequestBody Slider slider){
+
+      sliderRepos.deleteById(Long.valueOf(slider.getId()));
+
+        return "deleted";
+       // return  new RedirectView("/admin/settings");
+
+
+    }
+
+
+    @PostMapping(value = "/admin/sliders/update")
+    public int sliders_update(@RequestBody Slider slider){
+
+        sliderRepos.updateSliderById(slider.getId(), slider.getTitle(), slider.getImg_url(), slider.getRank(),slider.getUrl());
+
+
+        return 1;
+
+
+    }
+
+
     public List<Settings> ayarlariGetir(){
 
         List<Settings> settingsList = new ArrayList<>();
@@ -86,6 +143,16 @@ public class AdminController {
         settingsRepos.findAll().forEach(settingsList::add);
 
         return settingsList;
+
+    }
+
+    public List<Slider> sliderlariGetir(){
+
+        List<Slider> sliderList = new ArrayList<>();
+
+        sliderRepos.findAll().forEach(sliderList::add);
+
+        return sliderList;
 
     }
 

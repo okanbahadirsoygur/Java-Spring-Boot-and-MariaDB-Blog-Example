@@ -91,6 +91,8 @@
 
 .sol-menu .menu ul .active a {
   color: white;
+  width: 95%;
+  margin-left: 5%;
 }
 
 .sol-menu .licence {
@@ -142,7 +144,7 @@
   color: #1A476F;
 }
 
-.admin-container .item-container input[type="text"] {
+.admin-container .item-container input[type="text"], .admin-container .item-container input[type="number"] {
   height: 35px;
   border: 1px solid #333;
   padding-left: 5px;
@@ -206,6 +208,10 @@
   font-weight: bold;
 }
 
+.admin-container .item-container table tbody {
+  padding: 20px;
+}
+
 .admin-container .item-container table tbody tr {
   margin-bottom: 20px;
   height: 40px;
@@ -214,6 +220,30 @@
 
 .admin-container .item-container table tbody tr td input[type="text"] {
   width: 95%;
+}
+
+.admin-container .item-container table tbody tr td .new {
+  background: #6cb44a;
+}
+
+.admin-container .item-container table tbody tr td .new:hover {
+  background: green;
+}
+
+.admin-container .item-container table tbody tr td .update {
+  background: #e79821;
+}
+
+.admin-container .item-container table tbody tr td .update:hover {
+  background: #ce8511;
+}
+
+.admin-container .item-container table tbody tr td .delete {
+  background: red;
+}
+
+.admin-container .item-container table tbody tr td .delete:hover {
+  background: darkred;
 }
 
 .admin-container .item-container .save {

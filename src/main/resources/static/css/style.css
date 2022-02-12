@@ -78,6 +78,18 @@ h2 {
   font-size: 12px;
 }
 
+.anasayfa .list .categorie {
+  float: right;
+  right: 0;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.anasayfa .list .categorie p {
+  font-size: 12px;
+}
+
 .sayfalar .one-cikan-resim {
   width: 100%;
   height: 300px;

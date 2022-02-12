@@ -103,6 +103,7 @@ public class HomeController {
 
         modelAndView.addObject("slug",slug);
         modelAndView.addObject("categories", kategorileriGetir());
+        modelAndView.addObject("title", categorie.getTitle());
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("categorie",categorie);
         modelAndView.addObject("sayfalar",pagesList);
@@ -126,6 +127,7 @@ public class HomeController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("categories", kategorileriGetir());
+        modelAndView.addObject("title", pages.getTitle());
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("sayfa", pages);
 
