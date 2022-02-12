@@ -149,7 +149,7 @@
   border: 1px solid #333;
   padding-left: 5px;
   font-size: 18px;
-  min-width: 200px;
+  min-width: 90px;
   width: 100%;
 }
 
@@ -166,7 +166,7 @@
 
 .admin-container .item-container select {
   height: 39px;
-  min-width: 200px;
+  min-width: 90px;
   border: 1px solid #1A476F;
   font-size: 18px;
   width: 100%;
@@ -182,7 +182,7 @@
   padding-left: 5px;
   font-size: 18px;
   text-align: center;
-  min-width: 100px;
+  min-width: 80px;
   color: white;
   background: #1A476F;
   cursor: pointer;
@@ -198,6 +198,8 @@
   text-align: center;
   border-collapse: collapse;
   margin-bottom: 20px;
+  border-collapse: separate;
+  border-spacing: 0 20px;
 }
 
 .admin-container .item-container table thead {
@@ -213,9 +215,18 @@
 }
 
 .admin-container .item-container table tbody tr {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 40px;
   font-size: 16px;
+}
+
+.admin-container .item-container table tbody tr td {
+  text-align: center;
+  justify-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 .admin-container .item-container table tbody tr td input[type="text"] {
@@ -224,6 +235,7 @@
 
 .admin-container .item-container table tbody tr td .new {
   background: #6cb44a;
+  margin-left: 10px;
 }
 
 .admin-container .item-container table tbody tr td .new:hover {
@@ -232,6 +244,7 @@
 
 .admin-container .item-container table tbody tr td .update {
   background: #e79821;
+  margin-left: 10px;
 }
 
 .admin-container .item-container table tbody tr td .update:hover {

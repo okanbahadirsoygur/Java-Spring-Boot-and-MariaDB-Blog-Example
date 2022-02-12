@@ -1,0 +1,225 @@
+<!--
+ Bu sayfada delete, update, insert işlemleri farklı bir örnek olması açısından javascript ile yapılmıştır.
+ Amaç farklı bakış açısı görmektir.
+ -->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/snippets/head.html"></head>
+
+<header th:insert="admin/snippets/header.html"></header>
+
+<body>
+
+
+<div class="admin-container">
+
+
+    <div class="item-container">
+
+
+        <div class="baslik">
+            <label>Categories</label>
+        </div>
+
+
+        <table>
+            <thead>
+            <tr>
+                <td>Title*</td>
+                <td>Description*</td>
+                <td>Slug*</td>
+                <td>Rank*</td>
+                <td>Process*</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td><input type="text"    id="title"   required maxlength="50"  placeholder="Categorie title"></td>
+                <td><input type="text"    id="desc"    required maxlength="255" placeholder="Categorie description"></td>
+                <td><input type="text"    id="slug"    required maxlength="255" placeholder="Categorie url/slug"></td>
+                <td><input type="number"  id="rank"    required maxlength="3"   placeholder="Rank"></td>
+                <td>
+                    <input onclick="addconfirm()"  class="new" type="button" value="Add">
+
+                </td>
+            </tr>
+            </tbody>
+
+
+        </table>
+
+        <hr/>
+        </br>
+
+        <table>
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Slug</td>
+                <td>Rank</td>
+                <td>Process</td>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="categorie: ${categories}">
+
+                <td><input type="text" th:id="${'title_'+categorie.getId()}" th:name="${'title_'+categorie.getId()}" th:value="${categorie.getTitle()}" required maxlength="50"></td>
+                <td><input type="text" th:id="${'desc_'+categorie.getId()}" th:name="${'desc_'+categorie.getId()}" th:value="${categorie.getDescription()}" required maxlength="255"></td>
+                <td><input type="text" th:id="${'slug_'+categorie.getId()}" th:name="${'slug_'+categorie.getId()}" th:value="${categorie.getSlug()}" required maxlength="255"></td>
+                <td><input type="number" th:id="${'rank_'+categorie.getId()}" th:name="${'rank_'+categorie.getId()}" th:value="${categorie.getRank()}" required maxlength="3"></td>
+                <td>
+                    <input onclick="updateconfirm(this)" th:name="${'update_'+categorie.getId()}" th:id="${'update_'+categorie.getId()}" class="update" type="button" value="Update">
+                    <input onclick="deleteconfirm(this)" th:name="${'delete_'+categorie.getId()}" th:id="${'update_'+categorie.getId()}" class="delete" type="button" value="Delete">
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+        </br>
+
+    </div>
+
+</div>
+
+
+
+</body>
+
+<footer th:insert="admin/snippets/footer"></footer>
+</html>
+
+<script>
+
+    function deleteconfirm(value){
+
+        let confirm_ = confirm("Do you want to delete?");
+
+        if(confirm_){
+
+            let data = {id: value.name.split("_")[1]};
+            console.log(data);
+
+            fetch("/admin/categories/delete", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+                location.reload();
+            });
+
+        }// evet dedi ise
+
+    }
+
+
+    function updateconfirm(value){
+
+        let confirm_ = confirm("Do you want to update?");
+
+
+        if(confirm_) {
+
+
+            let id = value.id.split("_")[1];
+
+
+            let slug_ = document.querySelector("#slug_" + id).value;
+            let desc_ = document.querySelector("#desc_" + id).value;
+            let title_ = document.querySelector("#title_" + id).value;
+            let rank_ = document.querySelector("#rank_" + id).value;
+
+            if (isEmpty(slug_) == false && isEmpty(title_) == false && isEmpty(desc_) == false && isEmpty(rank) == false) {
+
+
+                let data = {id: id, title: title_, slug: slug_, description: desc_, rank: rank_};
+
+                console.log(data);
+
+                fetch("/admin/categories/update", {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify(data)
+
+                }).then(res => {
+                    console.log("Request complete! response:", res);
+
+                    location.reload();
+
+                });
+
+            } else {
+
+                alert("please fill in all fields*");
+            }
+
+
+        }
+
+    }
+
+
+
+    function addconfirm(){
+
+
+        let slug_ = document.querySelector("#slug").value;
+        let title_ = document.querySelector("#title").value;
+        let desc_ = document.querySelector("#desc").value;
+        let rank = document.querySelector("#rank").value;
+
+
+        if(isEmpty(slug_) == false && isEmpty(title_) == false && isEmpty(desc_) == false && isEmpty(rank) == false){
+
+
+            let data = {title : title_, slug: slug_, description: desc_, rank : rank };
+
+            console.log(data);
+
+            fetch("/admin/categories/add", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+
+                location.reload();
+
+            });
+
+        }else{
+
+            alert("please fill in all fields*");
+        }
+
+
+    }
+
+    function isEmpty(value){
+
+        if(value != null && value != ""){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+</script>

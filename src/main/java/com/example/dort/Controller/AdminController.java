@@ -1,7 +1,9 @@
 package com.example.dort.Controller;
 
+import com.example.dort.Entities.Categories;
 import com.example.dort.Entities.Settings;
 import com.example.dort.Entities.Slider;
+import com.example.dort.repos.CategoriesRepos;
 import com.example.dort.repos.SettingsRepos;
 import com.example.dort.repos.SliderRepos;
 import org.aspectj.apache.bcel.generic.RET;
@@ -21,6 +23,9 @@ public class AdminController {
 
     @Autowired
     SliderRepos sliderRepos;
+
+    @Autowired
+    CategoriesRepos categoriesRepos;
 
 
     /**
@@ -106,6 +111,20 @@ public class AdminController {
 
     }
 
+
+    @GetMapping("/admin/categories")
+    public ModelAndView categories(){
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("slug_categories",true);
+        modelAndView.addObject("categories", kategoriGetir());
+        modelAndView.setViewName("/admin/categories");
+
+        return modelAndView;
+
+    }
+
+
     /**
      * <p>Javascript(fetch) ile id değerini json formatında buraya yolluyorum.</p>
      * <p>RequestBody ile bu data'yı alıp, Slider objesi(entities,class) ile eşliyoruz.
@@ -156,6 +175,58 @@ public class AdminController {
     }
 
 
+
+
+    /**
+     * <p>Javascript(fetch) ile id değerini json formatında buraya yolluyorum.</p>
+     * <p>RequestBody ile bu data'yı alıp, Slider objesi(entities,class) ile eşliyoruz.
+     * Json formatındaki data'ları değişkenlerde tutamıyorum, belki bir yolu vardır ama ben bulamadım. Objeler üzerinden json datalarını eşleyip, erişimi bu şekilde gerçekleştiriyoruz.</p>
+     */
+
+    @PostMapping(value = "/admin/categories/delete")
+    public String categories_delete(@RequestBody Categories categorie){
+
+        categoriesRepos.deleteById(Long.valueOf(categorie.getId()));
+
+        return "deleted";
+        // return  new RedirectView("/admin/settings");
+
+
+    }
+
+
+    @PostMapping(value = "/admin/categories/add")
+    public int categories_add(@RequestBody Categories categorie){
+
+        //slider objesi yaratalım. Daha sonra bize json ile gönderilen slider objesindeki değerleri burdaki objeye yollayalım.
+        Categories categoriesEntities = new Categories();
+
+        categoriesEntities.setTitle(categorie.getTitle());
+        categoriesEntities.setDescription(categorie.getDescription());
+        categoriesEntities.setSlug(categorie.getSlug());
+        categoriesEntities.setRank(categorie.getRank());
+
+        //repostry'e sliderEntities'i yollayalım veritabanına eklesin.
+        categoriesRepos.save(categoriesEntities);
+
+        return 1;
+
+
+    }
+
+
+    @PostMapping(value = "/admin/categories/update")
+    public int sliders_update(@RequestBody Categories categorie){
+
+        categoriesRepos.updateCategorieById(categorie.getId(), categorie.getTitle(), categorie.getSlug(),categorie.getDescription(), categorie.getRank());
+
+
+        return 1;
+
+
+    }
+
+
     public List<Settings> ayarlariGetir(){
 
         List<Settings> settingsList = new ArrayList<>();
@@ -173,6 +244,18 @@ public class AdminController {
         sliderRepos.findAll().forEach(sliderList::add);
 
         return sliderList;
+
+    }
+
+
+    public List<Categories> kategoriGetir(){
+
+        List<Categories> categoriesList = new ArrayList<>();
+
+        categoriesRepos.findAll().forEach(categoriesList::add);
+
+        return categoriesList;
+
 
     }
 
