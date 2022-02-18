@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class AdminController {
      */
 
     @GetMapping("/admin")
-    public ModelAndView admin(){
+    public ModelAndView admin(HttpSession sessions){
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -47,7 +48,7 @@ public class AdminController {
 
 
     @GetMapping("/admin/settings")
-    public ModelAndView settings(){
+    public ModelAndView settings(HttpSession sessions){
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -98,7 +99,7 @@ public class AdminController {
 
 
     @GetMapping("/admin/sliders")
-    public ModelAndView sliders(){
+    public ModelAndView sliders(HttpSession sessions){
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -113,7 +114,7 @@ public class AdminController {
 
 
     @GetMapping("/admin/categories")
-    public ModelAndView categories(){
+    public ModelAndView categories(HttpSession sessions){
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("slug_categories",true);
@@ -132,7 +133,7 @@ public class AdminController {
      */
 
     @PostMapping(value = "/admin/sliders/delete")
-    public String sliders_delete(@RequestBody Slider slider){
+    public String sliders_delete(@RequestBody Slider slider, HttpSession sessions){
 
       sliderRepos.deleteById(Long.valueOf(slider.getId()));
 
@@ -144,7 +145,7 @@ public class AdminController {
 
 
     @PostMapping(value = "/admin/sliders/update")
-    public int sliders_update(@RequestBody Slider slider){
+    public int sliders_update(@RequestBody Slider slider, HttpSession sessions){
 
         sliderRepos.updateSliderById(slider.getId(), slider.getTitle(), slider.getImg_url(), slider.getRank(),slider.getUrl());
 
@@ -157,7 +158,7 @@ public class AdminController {
 
 
     @PostMapping(value = "/admin/sliders/add")
-    public int sliders_add(@RequestBody Slider slider){
+    public int sliders_add(@RequestBody Slider slider, HttpSession sessions){
 
         //slider objesi yaratalım. Daha sonra bize json ile gönderilen slider objesindeki değerleri burdaki objeye yollayalım.
         Slider sliderEntities = new Slider();
@@ -184,7 +185,7 @@ public class AdminController {
      */
 
     @PostMapping(value = "/admin/categories/delete")
-    public String categories_delete(@RequestBody Categories categorie){
+    public String categories_delete(@RequestBody Categories categorie, HttpSession sessions){
 
         categoriesRepos.deleteById(Long.valueOf(categorie.getId()));
 
@@ -196,7 +197,7 @@ public class AdminController {
 
 
     @PostMapping(value = "/admin/categories/add")
-    public int categories_add(@RequestBody Categories categorie){
+    public int categories_add(@RequestBody Categories categorie, HttpSession sessions){
 
         //slider objesi yaratalım. Daha sonra bize json ile gönderilen slider objesindeki değerleri burdaki objeye yollayalım.
         Categories categoriesEntities = new Categories();
@@ -216,7 +217,7 @@ public class AdminController {
 
 
     @PostMapping(value = "/admin/categories/update")
-    public int sliders_update(@RequestBody Categories categorie){
+    public int sliders_update(@RequestBody Categories categorie, HttpSession sessions){
 
         categoriesRepos.updateCategorieById(categorie.getId(), categorie.getTitle(), categorie.getSlug(),categorie.getDescription(), categorie.getRank());
 

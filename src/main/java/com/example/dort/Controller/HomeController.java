@@ -2,11 +2,13 @@ package com.example.dort.Controller;
 
 import com.example.dort.Entities.*;
 import com.example.dort.repos.*;
+import org.apache.catalina.session.StandardSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +58,11 @@ public class HomeController {
 
     }
 
+    //Sayfalar arası session taşımak için HttpSession tanımlaması yapılmalıdır. Fonksiyon içinde tanımlaması yapılmaz.
     @GetMapping(value = "/")
-    public ModelAndView index(@RequestParam(defaultValue = "", value = "q") String q) {
+    public ModelAndView index(@RequestParam(defaultValue = "", value = "q") String q ,HttpSession sessions) {
+
+        sessions.setAttribute("deneme", "okan bahadir soygür");
 
 
         //java metotlarımızı html sayfalarına bağladığımız class.
@@ -71,6 +76,7 @@ public class HomeController {
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("sonOnSayfalar", sonOnSayfayiGetir());
         modelAndView.addObject("sliders",sliderGetir());
+        modelAndView.addObject("session_okan",sessions.getAttribute("deneme"));
 
         //html sayfamızın adı.
         modelAndView.setViewName("index");
@@ -84,7 +90,8 @@ public class HomeController {
 
 
     @GetMapping(value = "/categories/{slug}")
-    public ModelAndView kategoriler(@PathVariable String slug){
+    public ModelAndView kategoriler(@PathVariable String slug, HttpSession sessions){
+
 
 
         //gelen kategorinin slug'ından bütün bilgilerini çekelim.
@@ -107,6 +114,7 @@ public class HomeController {
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("categorie",categorie);
         modelAndView.addObject("sayfalar",pagesList);
+        modelAndView.addObject("session_okan",sessions.getAttribute("deneme"));
 
 
 
@@ -119,7 +127,7 @@ public class HomeController {
 
 
     @GetMapping(value = "/pages/{slug}")
-    public ModelAndView sayfalar(@PathVariable String slug){
+    public ModelAndView sayfalar(@PathVariable String slug,HttpSession sessions){
 
 
         Pages pages = new Pages();
