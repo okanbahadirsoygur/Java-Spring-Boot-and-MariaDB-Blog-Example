@@ -1,4 +1,4 @@
-package com.example.dort.Entities;
+package com.okanbahadirsoygur.spring_boot_blog.Entities;
 
 //JPA Java Persistance API (Hibernate)
 import javax.persistence.*;

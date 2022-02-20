@@ -1,12 +1,11 @@
-package com.example.dort.Controller;
+package com.okanbahadirsoygur.spring_boot_blog.Controller;
 
-import com.example.dort.Entities.Categories;
-import com.example.dort.Entities.Settings;
-import com.example.dort.Entities.Slider;
-import com.example.dort.repos.CategoriesRepos;
-import com.example.dort.repos.SettingsRepos;
-import com.example.dort.repos.SliderRepos;
-import org.aspectj.apache.bcel.generic.RET;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Categories;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Settings;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Slider;
+import com.okanbahadirsoygur.spring_boot_blog.repos.CategoriesRepos;
+import com.okanbahadirsoygur.spring_boot_blog.repos.SettingsRepos;
+import com.okanbahadirsoygur.spring_boot_blog.repos.SliderRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;

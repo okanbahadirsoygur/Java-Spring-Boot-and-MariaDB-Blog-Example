@@ -1,10 +1,8 @@
-package com.example.dort.repos;
+package com.okanbahadirsoygur.spring_boot_blog.repos;
 
-import com.example.dort.Entities.Home;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Home;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /*
     Veritabanı işlemleri repository'ler tarafından yapılır. Veritabanına bu nesne sayesinde erişir ve işlemlerimizi yaparız.

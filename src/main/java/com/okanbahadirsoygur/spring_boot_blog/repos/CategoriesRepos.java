@@ -1,6 +1,6 @@
-package com.example.dort.repos;
+package com.okanbahadirsoygur.spring_boot_blog.repos;
 
-import com.example.dort.Entities.Categories;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Categories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

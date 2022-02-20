@@ -1,10 +1,9 @@
-package com.example.dort.repos;
+package com.okanbahadirsoygur.spring_boot_blog.repos;
 
-import com.example.dort.Entities.Settings;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Settings;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

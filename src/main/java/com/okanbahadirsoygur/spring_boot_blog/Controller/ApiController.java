@@ -1,7 +1,7 @@
-package com.example.dort.Controller;
+package com.okanbahadirsoygur.spring_boot_blog.Controller;
 
-import com.example.dort.Entities.Pages;
-import com.example.dort.repos.PagesRepos;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Pages;
+import com.okanbahadirsoygur.spring_boot_blog.repos.PagesRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

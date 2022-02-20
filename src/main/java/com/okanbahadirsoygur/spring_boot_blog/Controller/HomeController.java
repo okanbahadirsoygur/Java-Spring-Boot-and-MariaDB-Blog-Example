@@ -1,23 +1,14 @@
-package com.example.dort.Controller;
+package com.okanbahadirsoygur.spring_boot_blog.Controller;
 
-import com.example.dort.Entities.*;
-import com.example.dort.repos.*;
-import org.apache.catalina.session.StandardSession;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.*;
+import com.okanbahadirsoygur.spring_boot_blog.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Set;
 
 @RestController
 public class HomeController {

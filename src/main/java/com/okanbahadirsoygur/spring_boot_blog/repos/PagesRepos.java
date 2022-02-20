@@ -1,4 +1,4 @@
-package com.example.dort.repos;
+package com.okanbahadirsoygur.spring_boot_blog.repos;
 
 
 /*
@@ -6,7 +6,7 @@ package com.example.dort.repos;
     Her tablonun bir adet repository'si olmak zorundadır.
  */
 
-import com.example.dort.Entities.Pages;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Pages;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

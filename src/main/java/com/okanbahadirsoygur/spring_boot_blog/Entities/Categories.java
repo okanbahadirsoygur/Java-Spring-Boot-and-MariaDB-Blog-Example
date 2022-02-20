@@ -1,4 +1,4 @@
-package com.example.dort.Entities;
+package com.okanbahadirsoygur.spring_boot_blog.Entities;
 
 
 import javax.persistence.*;
