@@ -1,8 +1,11 @@
 package com.okanbahadirsoygur.spring_boot_blog.Controller;
 
+import com.okanbahadirsoygur.spring_boot_blog.Entities.Admin;
 import com.okanbahadirsoygur.spring_boot_blog.Entities.Categories;
 import com.okanbahadirsoygur.spring_boot_blog.Entities.Settings;
 import com.okanbahadirsoygur.spring_boot_blog.Entities.Slider;
+import com.okanbahadirsoygur.spring_boot_blog.library.SSecurity;
+import com.okanbahadirsoygur.spring_boot_blog.repos.AdminRepos;
 import com.okanbahadirsoygur.spring_boot_blog.repos.CategoriesRepos;
 import com.okanbahadirsoygur.spring_boot_blog.repos.SettingsRepos;
 import com.okanbahadirsoygur.spring_boot_blog.repos.SliderRepos;
@@ -12,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +31,9 @@ public class AdminController {
     @Autowired
     CategoriesRepos categoriesRepos;
 
+    @Autowired
+    AdminRepos adminRepos;
+
 
     /**
      * Yönetim Paneli ile ilgili işlemler bu Controller tarafından yapılır.
@@ -37,7 +44,7 @@ public class AdminController {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("admin/index");
+        modelAndView =  girisKontrol("/admin/index",sessions);
 
         return modelAndView;
 
@@ -148,12 +155,9 @@ public class AdminController {
 
         sliderRepos.updateSliderById(slider.getId(), slider.getTitle(), slider.getImg_url(), slider.getRank(),slider.getUrl());
 
-
         return 1;
 
-
     }
-
 
 
     @PostMapping(value = "/admin/sliders/add")
@@ -178,6 +182,7 @@ public class AdminController {
 
 
     /**
+     * <p>Bu sayfa sadece post edildiğinde çalışır.</p>
      * <p>Javascript(fetch) ile id değerini json formatında buraya yolluyorum.</p>
      * <p>RequestBody ile bu data'yı alıp, Slider objesi(entities,class) ile eşliyoruz.
      * Json formatındaki data'ları değişkenlerde tutamıyorum, belki bir yolu vardır ama ben bulamadım. Objeler üzerinden json datalarını eşleyip, erişimi bu şekilde gerçekleştiriyoruz.</p>
@@ -195,6 +200,12 @@ public class AdminController {
     }
 
 
+    /**
+     * <p>Bu sayfa sadece post edildiğinde çalışır.</p>
+     * @param categorie
+     * @param sessions
+     * @return
+     */
     @PostMapping(value = "/admin/categories/add")
     public int categories_add(@RequestBody Categories categorie, HttpSession sessions){
 
@@ -223,6 +234,46 @@ public class AdminController {
 
         return 1;
 
+
+    }
+
+
+    /**
+     * Kullanıcı /admin sayfasına gittiği zaman session kontrolü yapılacak ve eğer giriş yapmamış ise bu sayfaya yönlendirilecektir.
+     * Eğer giriş yapılmış ise bu sayfaya gelmeyecek direk /admin sayfasına yönlendirilecek.
+     * Giriş bilgileri admin adındaki sesionda tutulacaktır.
+     */
+    @GetMapping("/admin/login")
+    public ModelAndView login(HttpSession session){
+
+        //giriş kontrolü yapalım
+        //eğer giriş yapmamış ise fonksiyon otomatik /admin/login sayfasına yollayacak. Giriş yapmış ise verdiğimiz default view ismine gidecek.
+       return girisKontrol("/admin/index", session);
+
+
+    }
+
+
+    /**
+     * <p>Bu sayfa post edildiğinde çalışır.</p>
+     * "/admin/login" sayfasındaki form doldurulduktan sonra buraya post edilecek.
+     * Burda kontrol işlemleri yapıldıktan sonra giriş başarılı ise session oluşturulup "/admin" sayfasına yönlendirilecek.
+     * @param email
+     * @param passwd
+     * @return
+     */
+    @PostMapping("/admin/login/access")
+    public String login_access(@RequestParam String email, String passwd) throws NoSuchAlgorithmException {
+
+        //Gelen şifreyi md5'e dönüştürmek için gerekli olan fonksiyonları içeriyor.
+        SSecurity security = new SSecurity();
+
+        Admin admin = adminRepos.findByEmailandPass(email,security.StringToMd5(passwd));
+
+        if(admin == null)
+            return "Böyle bir üyelik yok.";
+        else
+        return admin.getId()+"";
 
     }
 
@@ -259,4 +310,31 @@ public class AdminController {
 
     }
 
-}
+
+    /**
+     * Burada kullanıcı admin sayfasına giriş yapmış ise hiç bir şey yapılmaz, giriş yapmamış ise /admin/login sayfasına yönlendirme işlemi yapılır.
+     */
+    public ModelAndView girisKontrol(String defaultView, HttpSession session){
+
+        ModelAndView mv = new ModelAndView();
+
+        //giriş sessiyon bilgisini kontrol edelim eğer içi dolu ise default view'e yönlendirelim. Boş ise /admin/login sayfasına yönlendirme işlemi yapalım
+
+        ArrayList<String> giris = (ArrayList<String>) session.getAttribute("giris");
+
+
+        //eğer giriş yapılmış ise default viewe yollayalım
+        if(giris != null){
+
+            mv.setViewName(defaultView);
+            return mv;
+        }else{
+            //giriş yapmamış ise /admin/login sayfasına gitsin
+
+            mv.setViewName("/admin/login");
+            return mv;
+        }
+
+    }
+
+}//class

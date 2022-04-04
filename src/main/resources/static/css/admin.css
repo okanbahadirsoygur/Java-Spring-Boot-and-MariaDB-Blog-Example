@@ -200,6 +200,7 @@
   margin-bottom: 20px;
   border-collapse: separate;
   border-spacing: 0 20px;
+  table-layout: fixed;
 }
 
 .admin-container .item-container table thead {
@@ -226,7 +227,6 @@
   align-content: center;
   justify-items: center;
   justify-content: center;
-  padding: 10px;
 }
 
 .admin-container .item-container table tbody tr td input[type="text"] {
@@ -261,4 +261,35 @@
 
 .admin-container .item-container .save {
   float: right;
+}
+
+.login .login-body {
+  margin-top: 200px;
+  padding: 100px;
+  background: white;
+  border: 1px solid #ddd;
+  width: 100%;
+  display: block;
+}
+
+.login .login-body h2 {
+  color: #6cb44a;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.login .login-body .grup {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login .login-body .grup label {
+  width: 100%;
+}
+
+.login .login-body .grup input {
+  width: 100%;
+  height: 35px;
+  border: 1px solid #ddd;
+  padding-left: 10px;
 }

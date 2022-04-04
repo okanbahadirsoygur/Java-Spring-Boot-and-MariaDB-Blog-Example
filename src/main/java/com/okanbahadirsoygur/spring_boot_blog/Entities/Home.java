@@ -36,7 +36,6 @@ public class Home {
 
 
 
-
     public void setIsim(String isim){this.isim = isim;}
 
     public void setFiyat(Double fiyat){this.fiyat = fiyat;}

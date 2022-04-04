@@ -69,6 +69,7 @@ public class HomeController {
         modelAndView.addObject("sliders",sliderGetir());
         modelAndView.addObject("session_okan",sessions.getAttribute("deneme"));
 
+
         //html sayfamızın adı.
         modelAndView.setViewName("index");
 

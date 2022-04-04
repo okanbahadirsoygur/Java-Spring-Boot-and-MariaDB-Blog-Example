@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/admin/snippets/head.html"></head>
+<body>
+
+
+<main class="login">
+
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-12">
+
+            <div class="login-body">
+
+                <center><h2>Admin Login</h2></center>
+
+                <form method="post" th:action="@{/admin/login/access}">
+
+
+
+                <div class="grup">
+                    <label>Email:</label>
+                    <input name="email" placeholder="E-mail">
+                </div>
+
+
+                <div class="grup">
+                    <label>Password:</label>
+                    <input name="passwd" type="password" placeholder="Password">
+                </div>
+
+
+
+                <div class="grup">
+                    <input type="submit" class="login-btn btn btn-primary" value="Login" >
+                </div>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+</main>
+
+</body>
+</html>
