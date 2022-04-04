@@ -10,7 +10,7 @@
 
 ### Screenshots Admin Panel
 ![Screenshot](screenshots/admin7.png)
-![Screenshot](screenshots/admin8.png)
+![Screenshot](screenshots/ten.png)
 ![Screenshot](screenshots/admin2.png)
 ![Screenshot](screenshots/admin4.png)
 ![Screenshot](screenshots/admin5.png)

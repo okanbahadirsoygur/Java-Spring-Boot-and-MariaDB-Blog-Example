@@ -193,7 +193,7 @@
   color: white;
   background: #1A476F;
   cursor: pointer;
-  width: 100%;
+  width: 10%;
 }
 
 .admin-container .item-container input[type="button"]:hover, .admin-container .item-container input[type="submit"]:hover {
