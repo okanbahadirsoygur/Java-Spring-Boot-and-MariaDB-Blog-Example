@@ -4,8 +4,8 @@
 
 ### Screenshots 
 ![Screenshot](screenshots/one.png)
-![Screenshot](screenshots/tree.png)
-![Screenshot](screenshots/four.png)
+![Screenshot](screenshots/six.png)
+![Screenshot](screenshots/five.png)
 
 
 ### Screenshots Admin Panel
