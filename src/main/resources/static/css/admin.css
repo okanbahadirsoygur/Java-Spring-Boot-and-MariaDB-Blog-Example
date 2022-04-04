@@ -31,7 +31,7 @@
 }
 
 .sol-menu .baslik label {
-  font-size: 30px;
+  font-size: 2rem;
   color: #1A476F;
 }
 
@@ -65,6 +65,7 @@
   border-bottom: 1px solid #4F779B;
   padding-left: 5px;
   min-height: 40px;
+  padding-top: 0;
 }
 
 .sol-menu .menu ul li:hover {
@@ -78,7 +79,7 @@
 
 .sol-menu .menu ul li a {
   color: #1A476F;
-  font-size: 25px;
+  font-size: 2rem;
   text-decoration: none;
   display: inline-block;
   width: 100%;
@@ -87,6 +88,7 @@
 .sol-menu .menu ul .active {
   background: #6cb44a;
   color: white;
+  padding-top: 0;
 }
 
 .sol-menu .menu ul .active a {
@@ -103,12 +105,13 @@
   color: #6cb44a;
   text-decoration: none;
   margin-bottom: 10px;
-  width: 20%;
+  width: 17%;
 }
 
 .sol-menu .licence a {
   text-decoration: none;
   color: #6cb44a;
+  font-size: 0.65rem;
 }
 
 .admin-container {
@@ -122,9 +125,7 @@
 }
 
 .admin-container .item-container {
-  border: 1px solid #1A476F;
   width: 100%;
-  padding: 20px;
 }
 
 .admin-container .item-container .baslik {
@@ -148,7 +149,7 @@
   height: 35px;
   border: 1px solid #333;
   padding-left: 5px;
-  font-size: 18px;
+  font-size: 1.2rem;
   min-width: 90px;
   width: 100%;
 }
@@ -157,10 +158,11 @@
   width: 100%;
   min-height: 200px;
   border: 1px solid #333;
+  font-size: 1.2rem;
 }
 
 .admin-container .item-container label {
-  font-size: 18px;
+  font-size: 1.2rem;
   color: black;
 }
 
@@ -168,7 +170,7 @@
   height: 39px;
   min-width: 90px;
   border: 1px solid #1A476F;
-  font-size: 18px;
+  font-size: 1.2rem;
   width: 100%;
 }
 
@@ -177,15 +179,16 @@
 }
 
 .admin-container .item-container input[type="button"], .admin-container .item-container input[type="submit"] {
-  height: 39px;
+  height: auto;
   border: 1px solid #1A476F;
   padding-left: 5px;
-  font-size: 18px;
+  font-size: 1.2rem;
   text-align: center;
   min-width: 80px;
   color: white;
   background: #1A476F;
   cursor: pointer;
+  width: 100%;
 }
 
 .admin-container .item-container input[type="button"]:hover, .admin-container .item-container input[type="submit"]:hover {
@@ -193,7 +196,6 @@
 }
 
 .admin-container .item-container table {
-  border: 1px solid #1A476F;
   width: 100%;
   text-align: center;
   border-collapse: collapse;
@@ -227,6 +229,7 @@
   align-content: center;
   justify-items: center;
   justify-content: center;
+  padding: 5px;
 }
 
 .admin-container .item-container table tbody tr td input[type="text"] {
@@ -244,7 +247,6 @@
 
 .admin-container .item-container table tbody tr td .update {
   background: #e79821;
-  margin-left: 10px;
 }
 
 .admin-container .item-container table tbody tr td .update:hover {

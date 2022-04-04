@@ -204,7 +204,7 @@ public class AdminController {
      * <p>Bu sayfa sadece post edildiğinde çalışır.</p>
      * @param categorie
      * @param sessions
-     * @return
+     * @return 1
      */
     @PostMapping(value = "/admin/categories/add")
     public int categories_add(@RequestBody Categories categorie, HttpSession sessions){
@@ -257,23 +257,52 @@ public class AdminController {
     /**
      * <p>Bu sayfa post edildiğinde çalışır.</p>
      * "/admin/login" sayfasındaki form doldurulduktan sonra buraya post edilecek.
-     * Burda kontrol işlemleri yapıldıktan sonra giriş başarılı ise session oluşturulup "/admin" sayfasına yönlendirilecek.
+     * Burda kontrol işlemleri yapıldıktan sonra giriş başarılı ise "giriş" adında session oluşturulup "/admin" sayfasına yönlendirilecek.
+     * "giris" adındaki sessionda admin'in bilgileri tutulacak.
      * @param email
      * @param passwd
      * @return
      */
     @PostMapping("/admin/login/access")
-    public String login_access(@RequestParam String email, String passwd) throws NoSuchAlgorithmException {
+    public ModelAndView login_access(@RequestParam String email, String passwd, HttpSession sessions) throws NoSuchAlgorithmException {
 
         //Gelen şifreyi md5'e dönüştürmek için gerekli olan fonksiyonları içeriyor.
         SSecurity security = new SSecurity();
+        ModelAndView mv = new ModelAndView();
+
 
         Admin admin = adminRepos.findByEmailandPass(email,security.StringToMd5(passwd));
 
-        if(admin == null)
-            return "Böyle bir üyelik yok.";
-        else
-        return admin.getId()+"";
+        if(admin == null) {
+            mv.addObject("q","No such membership found!");
+            mv.setViewName("/admin/login");
+            return  mv;
+        } else {
+
+            //2 boyutlu bir array list.
+            //admin bilgilerini sessiona yükleyelim.
+            String[][] giris = new String[4][2];
+
+            giris[0][0] = "email";
+            giris[0][1] = admin.getEmail();
+
+            giris[1][0] = "id";
+            giris[1][1] = admin.getId()+"";
+
+            giris[2][0] = "pass";
+            giris[2][1] = admin.getPass();
+
+            giris[3][0] = "last_login";
+            giris[3][1] = admin.getLast_login();
+
+            sessions.setAttribute("giris", giris);
+
+            //başarlı bir giriş yaptığını anlıyoruz. admin sayfasına atalım.
+            mv.setViewName("admin/index");
+            return mv;
+
+
+        }
 
     }
 
@@ -320,7 +349,7 @@ public class AdminController {
 
         //giriş sessiyon bilgisini kontrol edelim eğer içi dolu ise default view'e yönlendirelim. Boş ise /admin/login sayfasına yönlendirme işlemi yapalım
 
-        ArrayList<String> giris = (ArrayList<String>) session.getAttribute("giris");
+        String[][] giris = (String[][]) session.getAttribute("giris");
 
 
         //eğer giriş yapılmış ise default viewe yollayalım

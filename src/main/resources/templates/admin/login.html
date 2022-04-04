@@ -40,6 +40,10 @@
 
                 </form>
 
+                </br>
+                <!-- q paremetresi ile back-end deki uyarıları taşıyorum. Eğer uyarı varsa gösterelim ve ekrana basalım.-->
+                <div th:if="${q != null}" class="alert alert-danger" th:text="${q}"></div>
+
             </div>
 
 
