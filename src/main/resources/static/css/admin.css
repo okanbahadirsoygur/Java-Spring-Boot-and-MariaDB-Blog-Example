@@ -128,6 +128,11 @@
   width: 100%;
 }
 
+.admin-container .item-container .form-grup {
+  margin-bottom: 20px;
+  display: block;
+}
+
 .admin-container .item-container .baslik {
   width: 100%;
   display: flex;
@@ -243,6 +248,14 @@
 
 .admin-container .item-container table tbody tr td .new:hover {
   background: green;
+}
+
+.admin-container .item-container table tbody tr td .edit {
+  background: green;
+}
+
+.admin-container .item-container table tbody tr td .edit:hover {
+  background: #025902;
 }
 
 .admin-container .item-container table tbody tr td .update {

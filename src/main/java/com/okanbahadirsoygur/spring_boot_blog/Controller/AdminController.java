@@ -1,21 +1,20 @@
 package com.okanbahadirsoygur.spring_boot_blog.Controller;
 
-import com.okanbahadirsoygur.spring_boot_blog.Entities.Admin;
-import com.okanbahadirsoygur.spring_boot_blog.Entities.Categories;
-import com.okanbahadirsoygur.spring_boot_blog.Entities.Settings;
-import com.okanbahadirsoygur.spring_boot_blog.Entities.Slider;
+import com.okanbahadirsoygur.spring_boot_blog.Entities.*;
 import com.okanbahadirsoygur.spring_boot_blog.library.SSecurity;
-import com.okanbahadirsoygur.spring_boot_blog.repos.AdminRepos;
-import com.okanbahadirsoygur.spring_boot_blog.repos.CategoriesRepos;
-import com.okanbahadirsoygur.spring_boot_blog.repos.SettingsRepos;
-import com.okanbahadirsoygur.spring_boot_blog.repos.SliderRepos;
+import com.okanbahadirsoygur.spring_boot_blog.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +32,9 @@ public class AdminController {
 
     @Autowired
     AdminRepos adminRepos;
+
+    @Autowired
+    PagesRepos pagesRepos;
 
 
     /**
@@ -58,10 +60,13 @@ public class AdminController {
 
         ModelAndView modelAndView = new ModelAndView();
 
+
+        modelAndView =  girisKontrol("admin/settings",sessions);
+
         modelAndView.addObject("slug_settings",true);
         modelAndView.addObject("settings",ayarlariGetir());
 
-        modelAndView.setViewName("admin/settings");
+
 
         return modelAndView;
 
@@ -109,10 +114,12 @@ public class AdminController {
 
         ModelAndView modelAndView = new ModelAndView();
 
+        modelAndView =  girisKontrol("/admin/sliders",sessions);
+
         modelAndView.addObject("slug_sliders", true);
         modelAndView.addObject("sliders", sliderlariGetir());
 
-        modelAndView.setViewName("/admin/sliders");
+
 
         return modelAndView;
 
@@ -123,13 +130,149 @@ public class AdminController {
     public ModelAndView categories(HttpSession sessions){
 
         ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView =  girisKontrol("/admin/categories",sessions);
+
         modelAndView.addObject("slug_categories",true);
         modelAndView.addObject("categories", kategoriGetir());
-        modelAndView.setViewName("/admin/categories");
+
 
         return modelAndView;
 
     }
+
+
+
+    @GetMapping("/admin/pages")
+    public ModelAndView pages(HttpSession sessions, @RequestParam(defaultValue = "",required = false) String q){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView =  girisKontrol("/admin/pages",sessions);
+
+        modelAndView.addObject("slug_pages",true);
+        modelAndView.addObject("pages", sayfaGetir());
+        modelAndView.addObject("q", q);
+
+
+        return modelAndView;
+    }
+
+
+    /**
+     * Bu sayfada seçilen sayfalar düzenlenir, yada yeni sayfa eklenir.
+     * id değeri -1 ise yeni sayfa eklenmek isteniyordur. id Değeri -1 harici bir değer ise var olan bir sayfa düzenlenmek isteniyordur.
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/admin/pages/edit_or_add/{id}")
+    public ModelAndView pages_edit_or_add(@PathVariable Long id, HttpSession sessions){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+
+        modelAndView =  girisKontrol("/admin/pages_edit_or_add",sessions);
+        modelAndView.addObject("slug_pages",true);
+
+
+        if(id != -1){
+            //dolu ise var olan sayfanın bilgileri çekelim ve viewe yollayalım ekrana bassın.
+            Pages  page = new Pages();
+
+            //ilgli sayfayı repostoryden isteyelim
+            page =  pagesRepos.getById(id);
+
+            modelAndView.addObject("page",page);
+            modelAndView.addObject("id",id);
+            modelAndView.addObject("title","Edit page");
+
+        }else{
+            //id değeri boş ise yeni sayfa eklenmek isteniyordur.
+            //boş bir pages objesi yaratalım. Yoksa ön yüzde değerleri çekerken hata veriyor. Böylece boş objenin boş(null) datalarını çekebiliyor.
+            Pages page = new Pages();
+            modelAndView.addObject("page",page);
+
+            modelAndView.addObject("title","Add new page");
+        }
+
+        modelAndView.addObject("kategoriler", kategoriGetir());
+
+
+
+
+
+        return  modelAndView;
+
+    }
+
+
+    /**
+     * Bu sayfa sadece post edildiğinde çalışır.
+     * "/admin/pages/edit_or_add/{id}" sayfasından gelen datalar buraya post edilir.
+     * id değeri boş ise yeni sayfa oluşturulur, eğer id değeri dolu ise var olan sayfa update edilir.
+     *  Request param ile form datasını yakalıyoruz.
+     * @param id
+     * @return
+     */
+    @PostMapping("/admin/pages/edit_or_add/post")
+    public RedirectView pages_edit_or_add_post(@RequestParam Long id, String slug, String title, String sub_title, String short_data, String data, String seo1, String seo2, String img_url, Long categorie){
+
+        RedirectView rv = new RedirectView();
+
+        //eğer gelen id değeri -1 değil ise var olan sayfa editlenmek isteniyordur.
+        if(id != -1){
+
+            rv.setUrl("/admin/pages?q=Updated as page");
+
+            //id si olan sayfayı repostory'den isteyelim.
+            Pages pages = pagesRepos.getById(id);
+
+            pages.setTitle(title);
+            pages.setData(data);
+            pages.setShort_data(short_data);
+            pages.setSubTitle(sub_title);
+            pages.setImgUrl(img_url);
+            pages.setSeo_1(seo1);
+            pages.setSeo_2(seo2);
+            pages.setSlug(slug);
+            pages.setRank(0L);
+            pages.setCategorieId(categorie);
+
+
+
+
+            //repostry'nin vermiş olduğu sayfayı düzenledikten sonra kaydedilim.
+            pagesRepos.save(pages);
+
+            
+
+        }else{
+            //yeni sayfa yaratılmak isteniyordur.
+
+            //boş bir pages objesi oluşturalım.
+            Pages pages = new Pages();
+
+            pages.setTitle(title);
+            pages.setData(data);
+            pages.setShort_data(short_data);
+            pages.setSubTitle(sub_title);
+            pages.setImgUrl(img_url);
+            pages.setSeo_1(seo1);
+            pages.setSeo_2(seo2);
+            pages.setSlug(slug);
+            pages.setRank(0L);
+            pages.setCategorieId(categorie);
+
+            pagesRepos.save(pages);
+
+            rv.setUrl("/admin/pages?q=New page added");
+        }
+
+        return rv;
+
+    }
+
 
 
     /**
@@ -175,6 +318,28 @@ public class AdminController {
 
         return 1;
 
+    }
+
+
+    @PostMapping(value = "/admin/pages/delete")
+    public String pages_delete(@RequestBody Pages pages, HttpSession sessions){
+
+        pagesRepos.deleteById(Long.valueOf(pages.getId()));
+
+        return "deleted";
+        // return  new RedirectView("/admin/settings");
+
+
+    }
+
+
+
+    @PostMapping(value = "/admin/pages/update")
+    public int pages_update(@RequestBody Pages pages, HttpSession sessions){
+
+        pagesRepos.updatePagesById(pages.getId(), pages.getTitle(), pages.getRank());
+
+        return 1;
 
     }
 
@@ -336,6 +501,15 @@ public class AdminController {
 
         return categoriesList;
 
+
+    }
+
+    public List<Pages> sayfaGetir(){
+
+        List<Pages> pagesList = new ArrayList<>();
+        pagesRepos.getPagesOrderBySira().forEach(pagesList::add);
+
+        return pagesList;
 
     }
 

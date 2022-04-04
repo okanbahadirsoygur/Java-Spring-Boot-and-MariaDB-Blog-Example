@@ -6,9 +6,181 @@
 
 <body>
 
+<div class="admin-container">
 
+
+    <div class="item-container">
+
+
+        <div class="baslik">
+            <label>Pages</label>
+        </div>
+
+
+        <a  th:href="${'/admin/pages/edit_or_add/-1'}">     <input    class="btn btn-success" type="button" value="Add"></a>
+
+        </br>
+        </br>
+        <div th:if="${q != ''}" th:text="${q}" class="alert alert-success"></div>
+
+
+        <hr/>
+        </br>
+
+        <table>
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Rank</td>
+                <td>Process</td>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="page: ${pages}">
+
+                <td><input  type="text" th:id="${'name_'+page.getId()}" th:name="${'name_'+page.getId()}" th:value="${page.getTitle()}" required maxlength="50"></td>
+                <td><input  type="number" th:id="${'rank_'+page.getId()}" th:name="${'rank_'+page.getRank()}" th:value="${page.getRank()}" required maxlength="50"></td>
+                <td>
+                    <input  onclick="updateconfirm(this)" th:name="${'update_'+page.getId()}" th:id="${'update_'+page.getId()}" class="update" type="button" value="Update">
+                <a  th:href="${'/admin/pages/edit_or_add/'+page.getId()}">    <input  class="edit" type="button" value="Edit"></a>
+                    <input  onclick="deleteconfirm(this)" th:name="${'delete_'+page.getId()}" th:id="${'update_'+page.getId()}" class="delete" type="button" value="Delete">
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+        </br>
+
+    </div>
+
+</div>
 
 
 
 </body>
 </html>
+
+
+<script>
+
+    function deleteconfirm(value){
+
+        let confirm_ = confirm("Do you want to delete?");
+
+        if(confirm_){
+
+            let data = {id: value.name.split("_")[1]};
+            console.log(data);
+
+            fetch("/admin/pages/delete", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+                location.reload();
+            });
+
+        }// evet dedi ise
+
+    }
+
+
+    function updateconfirm(deger){
+
+        let confirm_ = confirm("Do you want to update?");
+
+        if(confirm_){
+
+            //update butonunun id değeri ilgili pages'in id değerini taşır. Bunu parçalayıp çekelim.
+            let id = deger.id.split("_")["1"];
+
+            //pages'e ait bilgileri çekelim.
+            let title_ = document.querySelector("#name_"+id).value;
+            let rank_ = document.querySelector("#rank_"+id).value;
+
+
+
+
+            //java tarafında bunu Entities,class,obje (ne derseniz artık) bağlayacağım için, Entities'deki değişkenler ile aynı isimlere sahip olmak zorunda.
+            //Eğer farklı isimlerde yollar isem, Entities burdaki değişkenleri kendi içindeki değişkenler ile eşleyemeyecektir ve veriler tutulamayacaktır!!!
+            let data = {id : id, title : title_, rank : rank_};
+
+            console.log(data);
+
+            fetch("/admin/pages/update", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+
+                location.reload();
+
+            });
+
+
+        }//evet dedi ise
+
+    }
+
+
+
+    function addconfirm(){
+
+        let title = document.querySelector("#title").value;
+        let rank = document.querySelector("#rank").value;
+
+
+        //bütün degerler girilmiş ise
+        if( isEmpty(title) == false && isEmpty(rank) == false){
+
+            //java tarafında bunu Entities,class,obje (ne derseniz artık) bağlayacağım için, Entities'deki değişkenler ile aynı isimlere sahip olmak zorunda.
+            //Eğer farklı isimlerde yollar isem, Entities burdaki değişkenleri kendi içindeki değişkenler ile eşleyemeyecektir ve veriler tutulamayacaktır!!!
+            let data = {title : title, rank : rank};
+
+            console.log(data);
+
+            /*
+            fetch("/admin/pages/add", {
+                method: "POST",
+                headers:{   'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                console.log("Request complete! response:", res);
+
+                location.reload();
+
+            });
+            */
+        }else{
+            alert("please fill in all fields*");
+        }
+
+
+    }
+
+    function isEmpty(value){
+
+        if(value != null && value != ""){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+</script>

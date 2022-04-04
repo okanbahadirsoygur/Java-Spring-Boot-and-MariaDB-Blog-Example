@@ -2,10 +2,26 @@
 #### version 1.0.0
 
 
-### Screenshots
+### Screenshots 
 ![Screenshot](screenshots/one.png)
 ![Screenshot](screenshots/tree.png)
 ![Screenshot](screenshots/four.png)
+
+
+### Screenshots Admin Panel
+![Screenshot](screenshots/admin7.png)
+![Screenshot](screenshots/admin8.png)
+![Screenshot](screenshots/admin2.png)
+![Screenshot](screenshots/admin4.png)
+![Screenshot](screenshots/admin5.png)
+![Screenshot](screenshots/admin6.png)
+
+### Admin Panel Login
+##### Username:test@test.com
+##### Password:test
+
+
+
 
 ### Used Technologies;
 

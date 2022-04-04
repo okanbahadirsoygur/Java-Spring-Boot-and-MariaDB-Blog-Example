@@ -13,7 +13,7 @@
 
 
 *{
-  font-family: lato!important;
+  /* font-family: lato!important; */
   font-style: normal!important;
   font-size: 16px;
 }
@@ -59,9 +59,11 @@ h2{
     margin-top: 50px;
 
     .list-img{
-      object-fit: cover;
+      object-fit: contain;
       width: 100%;
       height: 100%;
+      max-height: 170px;
+      max-width: 335px;
     }
 
     .aciklama{
@@ -211,9 +213,11 @@ header{
     margin-top: 50px;
 
     .list-img{
-      object-fit: cover;
+      object-fit: contain;
       width: 100%;
       height: 100%;
+      max-height: 170px;
+      max-width: 335px;
     }
 
     .aciklama{

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/admin/snippets/head"></head>
+<header th:insert="/admin/snippets/header"></header>
+
+
+<body>
+
+<div class="admin-container">
+
+
+    <div class="item-container">
+
+        <form method="post"  th:action="@{/admin/pages/edit_or_add/post}">
+
+        <div class="row">
+
+
+            <!-- bu değer boş ise post edilen datayı yeni sayfa olarak ekleyeceğiz. Eğer bu değer dolu ise update işlemi yapacağız -->
+            <input hidden th:value="${id}" name="id">
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Slug</label>
+                    <input name="slug" required type="text" th:value="${page.getSlug()}" placeholder="Slug">
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Title</label>
+                    <input name="title" required type="text" th:value="${page.getTitle()}" placeholder="Title">
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Sub Title</label>
+                    <input name="sub_title" type="text" th:value="${page.getSubTitle()}" placeholder="Sub Title">
+                </div>
+            </div>
+
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Categorie</label>
+                    <select name="categorie">
+                        <option th:each="kategori: ${kategoriler}" th:selected="${kategori.id == page.getCategorieId()}" th:text="${kategori.getTitle()}" th:value="${kategori.getId()}"> </option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Short Data</label>
+                    <textarea  name="short_data"  th:text="${page.getShort_data()}" placeholder="Short Data"></textarea>
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Data</label>
+                    <textarea class="ck" name="data"  th:text="${page.getData()}" placeholder="Data"></textarea>
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Seo 1</label>
+                    <input name="seo1" type="text"  th:value="${page.getSeo_1()}" placeholder="Seo 1">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Seo 1</label>
+                    <input name="seo2" type="text" th:value="${page.getSeo_2()}" placeholder="Seo 2">
+                </div>
+            </div>
+
+
+
+            <div class="col-12">
+                <div class="form-grup">
+                    <label>Image Url</label>
+                    <input name="img_url"  type="text" th:value="${page.getImgUrl()}" placeholder="Image Url">
+                </div>
+            </div>
+
+
+        </div>
+
+            <input type="submit" value="Save" class="btn btn-primary new">
+
+        </form>
+    </div>
+    </div>
+
+
+
+<footer th:insert="admin/snippets/footer"></footer>
+</body>
+</html>

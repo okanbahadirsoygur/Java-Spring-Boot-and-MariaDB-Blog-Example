@@ -61,13 +61,13 @@ public class HomeController {
 
         //html sayfasına java'daki Objeleri/ArrayListleri/Değişkenleri gönderelim.
         //Daha sonra thymeleaf kullanarak html sayfasında attributeName ile bu objelere erişeceğiz ve html sayfasında render edeceğiz.
-        modelAndView.addObject("title", "Ana Sayfa");
+        modelAndView.addObject("title", "Home");
         modelAndView.addObject("pages", sayfalariGetir());
         modelAndView.addObject("categories", kategorileriGetir());
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("sonOnSayfalar", sonOnSayfayiGetir());
         modelAndView.addObject("sliders",sliderGetir());
-        modelAndView.addObject("session_okan",sessions.getAttribute("deneme"));
+        //modelAndView.addObject("session_okan",sessions.getAttribute("deneme"));
 
 
         //html sayfamızın adı.
@@ -106,7 +106,7 @@ public class HomeController {
         modelAndView.addObject("settings", ayarlariGetir());
         modelAndView.addObject("categorie",categorie);
         modelAndView.addObject("sayfalar",pagesList);
-        modelAndView.addObject("session_okan",sessions.getAttribute("deneme"));
+
 
 
 

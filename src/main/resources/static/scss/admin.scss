@@ -142,6 +142,11 @@
     width: 100%;
 
 
+    .form-grup{
+      margin-bottom: 20px;
+
+        display: block;
+    }
 
 
     .baslik{
@@ -265,6 +270,14 @@
 
               &:hover{
                 background: green;
+              }
+            }
+
+            .edit{
+              background: green;
+
+              &:hover{
+                background: #025902;
               }
             }
 

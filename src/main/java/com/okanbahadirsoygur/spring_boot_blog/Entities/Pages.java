@@ -1,6 +1,10 @@
 package com.okanbahadirsoygur.spring_boot_blog.Entities;
 
 //JPA Java Persistance API (Hibernate)
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 
 
@@ -45,6 +49,8 @@ public class Pages {
 
     private Long rank;
 
+
+    @Generated(value = GenerationTime.INSERT)
     private String created_time;
 
     private Long deleted;
@@ -118,6 +124,8 @@ public class Pages {
         return img_url;
     }
 
+    public String getCreated_time(){return  created_time;}
+
     //setter metodları.
 
     public void setSubId(Long subId) {
@@ -173,4 +181,6 @@ public class Pages {
     public void setImgUrl(String imgUrl) {
         this.img_url = imgUrl;
     }
+
+    public void setCreated_time(String created_time){ this.created_time = created_time;}
 }
