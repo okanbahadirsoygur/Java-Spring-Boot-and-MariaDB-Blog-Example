@@ -3,11 +3,17 @@ package com.okanbahadirsoygur.spring_boot_blog.Controller;
 import com.okanbahadirsoygur.spring_boot_blog.Entities.*;
 import com.okanbahadirsoygur.spring_boot_blog.library.SSecurity;
 import com.okanbahadirsoygur.spring_boot_blog.repos.*;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
@@ -35,6 +41,9 @@ public class AdminController {
 
     @Autowired
     PagesRepos pagesRepos;
+
+    @Autowired
+    FileRepos fileRepos;
 
 
     /**
@@ -468,6 +477,81 @@ public class AdminController {
 
 
         }
+
+    }
+
+
+    /**
+     * Bu sayfada dosya yükleme işlemi yapılmaz sadece sisteme yüklenen(upload) dosyalar listelenir.
+     *
+     * Dosya yüklenmek istendiği zaman "/admin/media/add" sayfasına post ile yüklenmek istenen dosya yönlendirilir.
+     * @return
+     */
+    @GetMapping("/admin/media")
+    public ModelAndView media(){
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/media");
+
+        return modelAndView;
+    }
+
+
+    /**
+     * Bu sayfa sadece post edildiğinde çalışır.
+     * "admin/post" sayfasından gelen file nesnesi buraya post ile yollanır.
+     * MultipartFile nesnesi ile gelen dosyayı tutuyoruz. Daha sonra binary'e çevirip veritabanındaki data kolonuna yolluyoruz.
+     * data kolonumuzun türü longblob bende buraada yeni öğrendim bu türü. İçerisinde 4gb lık binary tutabiliyor.
+     * application.properties içerisinde;
+     *      spring.servlet.multipart.maxFileSize = 4000MB
+     *      spring.servlet.multipart.maxRequestSize= 4000MB
+     *      tanımlamaları ile max yüklenen bilecek data boyutunu 4gb olarak ayarladım. Ama bu seferde java VM heap hatası alıyorum. byte[] değişkeni memory yetersizliği nedeniyle patlıyor. Bi ara bu sorunu çözerim.
+     *      Bende default heap değeri Maximum JVM memory: 2147483648  bu şekilde. Şualık test amaçlı yeterli.
+     *      Heap sorununu çözsek bile MariaDB max 64MB lık data alabiliyor. Daha fazla yollar isek; "(conn=176) Could not send query: query size is >= to max_allowed_packet (16777216)"  hatası veriyor. Emininm bir çözüm yolu vardır ama uğraşmak istemiyorum. 64mb gayet yeterli basit bir blog sistemi için.
+     * File Entity de "private byte[] data;" kolonun annotation'unu  @Lob olarak tanıttık ki içerisine binary data gideceğini bilsin.
+     *
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/admin/media/add")
+    public String media_add(@RequestParam  MultipartFile file) throws Exception{
+
+        byte[] bytes = file.getBytes();
+        File fileEntity = new File();
+        String clearFileName = file.getOriginalFilename();
+
+        //dosya ismini biraz temizleyelim.
+        clearFileName = clearFileName.replace(" ","");
+        clearFileName = clearFileName.replace("'","");
+        clearFileName = clearFileName.replace("?","");
+
+
+        fileEntity.setData(bytes);
+        fileEntity.setName(clearFileName);
+        fileRepos.save(fileEntity);
+
+        return "1";
+    }
+
+
+    /**
+     * Veritabanına yüklenen binary dosyalara bu url üzerinden erişilir.
+     * Geriye binary data döndürür. Bu binary datayı javascript ile tutup(stream) indirmek gerekiyor.
+     * Neden veritabanına binary data yüklüyorum. Çünkü embeded tomcat üzerinde virtual folder aramak istemedim. Local'e tomcat kurulacak sonra virtual folder tanımlanacak.... çok iş. Böylesi daha basit.
+     * Bu yapının dez avantajı geriye bir url döndürmemesi. Gelen data binary olduğu için bunu url' ile çekemiyoruz ve url yapısında paylaşamıyoruz. Sadece depolama için kullanıyoruz. Bu yüzden web sitesindeki resimleri buraya yükleyip çekemeyiz.
+     * ResponseEntity olarak geriye değer döndürdüğüm için sayfa artık bir html sayfası değil.
+     * Headers'inde attachment olarak geçiyor. Böylece url'den id yi isteyince direk body içerisindeki data download ediliyor. Farklı bir örnek oldu.
+     * Bu örnek canlı sistemde pek bir işe yaramaz. Ama yazmış bulundum. O yüzden bırakıyorum bu şekilde.
+     * @return
+     */
+    @GetMapping("/file/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable(name = "id") Long id)throws  Exception{
+        File file  = fileRepos.getById(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .body(file.getData());
 
     }
 
